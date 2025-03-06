@@ -1,32 +1,32 @@
-import { StyleSheet, Text, View, TextInput, Pressable} from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable, Image} from 'react-native'
 import { SelectList } from "react-native-dropdown-select-list";
 import React from 'react'
+// import AppLogo from '../assets/AppLogo'
 
-const Form = ({children, isLogin, setIsLogin}) => {
+const Form = ({children, isLogin, setIsLogin, style}) => {
   return (
-    <View>
-      <Text style={styles.formHeader}>{ isLogin ? "Welcome back" : "Register with us"}</Text>
-        <View style={styles.formContainer}>
-            {children}
+    <View style={[styles.formContainer, style]}>
+        <Text style={styles.formTitle}>{ isLogin ? "Login" : "Register"}</Text>
+        <Image source={require('../assets/AppLogo.png')} style={styles.appLogo}/>
+        {children}
 
-            <View style={styles.bottomContainer}>
-                <Text style={styles.toggleText} onPress={() => {setIsLogin(!isLogin)}}>
-                    {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Sign In'}
-                </Text>
-            </View>
+        <View style={styles.bottomContainer}>
+            <Text style={styles.toggleText} onPress={() => {setIsLogin(!isLogin)}}>
+                {isLogin ? `Don't have an account? Sign Up` : 'Already have an account? Sign In'}
+            </Text>
         </View>
     </View>
   )
 }
 
-const InputText = ({label, value, onChange, isPassword}) => {
+const InputText = ({label, value, onChange, isPassword, style}) => {
     return(
         <View style={styles.item}>
             <Text style={styles.itemLabel}>{label}</Text>
             <TextInput 
                 value={value} 
                 onChangeText={onChange}
-                style={styles.itemTextInput}
+                style={[styles.itemTextInput, style]}
                 placeholder={label}
                 secureTextEntry={isPassword}
             />
@@ -51,10 +51,10 @@ const InputSelect = ({ label, options, selectedValue, onValueChange }) => {
   };
 
 
-  const SubmitButton = ({label, onPress}) => {
+  const SubmitButton = ({label, onPress, style, textStyle}) => {
     return(
-        <Pressable onPress={onPress} style={styles.button}>
-            <Text style={styles.label}>{label}</Text>
+        <Pressable onPress={onPress} style={[styles.button, style]}>
+            <Text style={[styles.label, textStyle]}>{label}</Text>
         </Pressable>
     );
 }
@@ -68,6 +68,16 @@ Form.SubmitButton = SubmitButton;
 export default Form
 
 const styles = StyleSheet.create({
+   
+    appLogo: {
+        width: 200,
+        height: 200,
+        resizeMode: 'contain',
+    },
+    formTitle: {
+        fontWeight: 'bold',
+        fontSize: 30,
+    },
     item: {
         justifyContent: 'center',
     },
@@ -81,17 +91,8 @@ const styles = StyleSheet.create({
         maxWidth: 400
     },
     button: {
-        minHeight: 50,
-        maxHeight: 30,
-        borderRadius: 25,
-        backgroundColor: '#13AE85',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 3,
         marginTop: 30,
-        flex: 1,
         justifyContent: 'center',
-        width: 200,
         alignItems: 'center'
     }
 })
