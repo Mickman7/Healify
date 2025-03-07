@@ -35,16 +35,15 @@ const InputText = ({label, value, onChange, isPassword, style}) => {
     );
 }
 
-const InputSelect = ({ label, options, selectedValue, onValueChange }) => {
+const InputSelect = ({ label, options, onValueChange, style }) => {
     return (
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, style]}>
         <Text style={styles.label}>{label}</Text>
         <SelectList
           data={options.map((option) => ({ key: option, value: option }))}
           setSelected={onValueChange} 
-          defaultOption={{ key: selectedValue, value: selectedValue }}
           placeholder="Select an option"
-          style={styles.selectStyles}
+          style={[styles.selectStyles]}
         />
       </View>
     );
