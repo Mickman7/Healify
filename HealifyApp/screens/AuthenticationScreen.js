@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Alert, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Alert, ImageBackground, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { UserTypeContext } from '../App'
 
 import Form from '../components/Form'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,onAuthStateChanged, signOut } from "firebase/auth";
 import { collection,getDoc, addDoc, doc, serverTimestamp, firestore, setDoc } from 'firebase/firestore';
 
 import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from '../FirebaseConfig'; 
@@ -35,8 +35,6 @@ const AuthenticationScreen = ({navigation, route}) => {
       }, []);
 
     const handleAuthentication = async () => {
-
-
       if (!email || !password) {
           console.error("Email or password is empty.");
           return;
@@ -68,7 +66,7 @@ const AuthenticationScreen = ({navigation, route}) => {
             }
             
           } else {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
             const user = userCredential.user;
             const uid = user.uid; //Making sure the collection uid is the same as the auth uid
 
@@ -93,6 +91,18 @@ const AuthenticationScreen = ({navigation, route}) => {
           console.error('Authentication error:', error.message);
         }
     };
+
+
+    const handleForgotPassword = async() => {
+      try{
+        await sendPasswordResetEmail(FIREBASE_AUTH, email);
+        Alert.alert('Password reset email sent')
+
+      }catch(err) {
+        console.error(err);
+      }
+      
+    }
 
   return (
     // <ImageBackground
@@ -121,6 +131,12 @@ const AuthenticationScreen = ({navigation, route}) => {
           isPassword={true}
           style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
         />
+        {isLogin && (
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text>Forgot Password?</Text>
+          </TouchableOpacity>
+        )}
+
 
         <Form.SubmitButton
           label={isLogin ? 'Login' : 'Create'}
