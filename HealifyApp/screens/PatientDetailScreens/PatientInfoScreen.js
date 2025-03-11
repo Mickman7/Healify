@@ -51,7 +51,7 @@ const PatientInfoScreen = ({navigation}) => {
         />
 
 
-        <TouchableOpacity onPress={() => navigation.navigate('UserAddressScreen', {fullName, dob, sex, ethnicity})} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('PatientAddressScreen', {fullName, dob, sex, ethnicity})} style={styles.button}>
             <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
     </View>

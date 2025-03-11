@@ -17,7 +17,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
 
     const handlesubmit = async() => {
         try{
-            await addDoc(collection(FIREBASE_DB, 'client'), {
+            await addDoc(collection(FIREBASE_DB, 'patients'), {
                 uid: userId, 
                 fullName: fullName,
                 dob: dob,
@@ -36,12 +36,12 @@ const PatientHostoryScreen = ({navigation, route}) => {
                 
               });
 
+              console.log('User details submitted successfully!');
+              navigation.navigate('Home')
         }catch(err) {
             console.error("Error submitting user details:", err.message)
         }
         
-          console.log('User details submitted successfully!');
-          navigation.navigate('Home')
 
     }
 

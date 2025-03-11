@@ -11,36 +11,55 @@ import { UserTypeContext } from '../App'
 
 const HomeScreen = ({navigation, route}) => {
   
-    // const { userType } = route.params;
     const { userType } = useContext(UserTypeContext);
+    // const userType = 'Clinician'
 
 
   const handleSubmit = () => {
     
-    // if (user.userType === 'clinician') {
-    //   navigation.navigate('ClinicianDetails');
-    // } else if (user.userType === 'patient') {
-    //   navigation.navigate('PatientDetails');
-    // } else {
-    //   console.log('Unknown user type:', user.userType);
-    // }
+    if (userType === 'Clinician') {
+      navigation.navigate('ClinicianDetails');
+    } else if (userType === 'Patient') {
+      navigation.navigate('PatientDetails');
+    } else {
+      console.log('Unknown user type:', userType);
+    }
 
   }
 
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-      {/* <TouchableOpacity 
-        onPress={handleSubmit} 
-        style={{borderWidth: 1, padding: 5, width: 100, justifyContent: 'center', alignItems: 'center', marginTop: 100}}
-      >
-        <Text>Button</Text>
-      </TouchableOpacity> */}
       {userType === 'Clinician' ? (
-        <Text>This is the Clinician Home Page</Text>
+        <View>
+          <Text>This is the Clinician Home Page</Text>
+          <TouchableOpacity 
+            onPress={handleSubmit} 
+            style={{borderWidth: 1, padding: 5, width: 100, justifyContent: 'center', alignItems: 'center', marginTop: 100}}
+          >
+            <Text>Button</Text>
+          </TouchableOpacity>
+        </View>
+        
+
+
       ) : (
-        <Text>This is the Patient Home Page</Text>
+
+
+
+
+        <View>
+          <Text>This is the Patient Home Page</Text>
+          <TouchableOpacity 
+            onPress={handleSubmit} 
+            style={{borderWidth: 1, padding: 5, width: 100, justifyContent: 'center', alignItems: 'center', marginTop: 100}}
+          >
+            <Text>Button</Text>
+          </TouchableOpacity>
+        </View>
+        
       )}
+      
     </View>
   )
 }

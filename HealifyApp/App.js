@@ -19,6 +19,7 @@ import PatientHistoryScreen from './screens/PatientDetailScreens/PatientHistoryS
 import ClinicialInfoScreen from './screens/ClinicianDetailsScreens/ClinicianInfoScreen';
 import ClinicianCredentialsScreen from './screens/ClinicianDetailsScreens/ClinicianCredentialsScreen';
 import ClinicianWorkScreen from './screens/ClinicianDetailsScreens/ClinicianWorkScreen';
+import ClinicianWorkAddressScreen from './screens/ClinicianDetailsScreens/ClinicianWorkAddressScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,6 +44,7 @@ function ClinicianDetailStack() {
       <Stack.Screen name='Clinician Personal Info' component={ClinicialInfoScreen}/>
       <Stack.Screen name='Clinician Credentials' component={ClinicianCredentialsScreen}/>
       <Stack.Screen name='Clinician Work' component={ClinicianWorkScreen}/>
+      <Stack.Screen name='Clinician Work Address' component={ClinicianWorkAddressScreen}/>
     </Stack.Navigator>
   ); 
 
