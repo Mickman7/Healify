@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import Form from '../../components/Form'
 
-const PersonalInfoScreen = ({navigation}) => {
+const PatientInfoScreen = ({navigation}) => {
 
     const [fullName, setFullName] = useState();
     const [dob, setDob] = useState();
@@ -58,7 +58,7 @@ const PersonalInfoScreen = ({navigation}) => {
   )
 }
 
-export default PersonalInfoScreen
+export default PatientInfoScreen
 
 const styles = StyleSheet.create({
     formContainer: {

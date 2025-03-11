@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import Form from '../../components/Form';
 
-const UserAddressScreen = ({navigation, route}) => {
+const PatientAddressScreen = ({navigation, route}) => {
 const [country, setCountry] = useState();
 const [street, setStreet] = useState();
 const [addressLineTwo, setAddressLineTwo] = useState();
@@ -63,7 +63,7 @@ const {fullName, dob, sex, ethnicity} = route.params;
   )
 }
 
-export default UserAddressScreen
+export default PatientAddressScreen
 
 const styles = StyleSheet.create({
   formContainer: {

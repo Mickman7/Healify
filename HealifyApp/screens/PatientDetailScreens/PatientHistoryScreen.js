@@ -5,7 +5,7 @@ import { FIREBASE_AUTH, FIREBASE_DB } from '../../FirebaseConfig';
 
 import Form from '../../components/Form';
 
-const UserHistoryScreen = ({navigation, route}) => {
+const PatientHostoryScreen = ({navigation, route}) => {
     const [prevDoc, setPrevDoc] = useState();
     const [preDocEmail, setPreDocEmail] = useState();
     const [currentDocName, setCurrentDocName] = useState();
@@ -91,7 +91,7 @@ const UserHistoryScreen = ({navigation, route}) => {
   )
 }
 
-export default UserHistoryScreen
+export default PatientHostoryScreen
 
 const styles = StyleSheet.create({
     formContainer: {
