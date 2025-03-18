@@ -20,6 +20,7 @@ import ClinicialInfoScreen from "./screens/ClinicianDetailsScreens/ClinicianInfo
 import ClinicianCredentialsScreen from "./screens/ClinicianDetailsScreens/ClinicianCredentialsScreen";
 import ClinicianWorkScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkScreen";
 import ClinicianWorkAddressScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkAddressScreen";
+import CalculatorScreen from "./screens/CalculatorScreens/CalculatorScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,7 +66,7 @@ function ClinicianDetailStack() {
   );
 }
 
-function MyTabs({navigation}) {
+function MyTabs({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -81,7 +82,7 @@ function MyTabs({navigation}) {
       tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calculator" component={UserTypeScreen} />
+      <Tab.Screen name="Calculator" component={CalculatorScreen} />
       <Tab.Screen name="Profile" component={PatientHome} />
     </Tab.Navigator>
   );
