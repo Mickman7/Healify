@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert, ImageBackground, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { UserTypeContext } from '../App'
 
@@ -105,11 +105,7 @@ const AuthenticationScreen = ({navigation, route}) => {
     }
 
   return (
-    // <ImageBackground
-    //   source={require()} 
-    // >
-
-      <View style={styles.formContainer}>
+    <View style={styles.formContainer}>
 
         <Form
           isLogin={isLogin}
@@ -117,36 +113,29 @@ const AuthenticationScreen = ({navigation, route}) => {
           style={{alignItems: 'center', marginTop: 40}}
         >
 
-        <Form.InputText
-          label='Email'
-          value={email}
-          onChange={setEmail}
-          isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
-        />
-        <Form.InputText
-          label='Password'
-          value={password}
-          onChange={setPassword}
-          isPassword={true}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
-        />
-        {isLogin && (
-          <TouchableOpacity onPress={handleForgotPassword}>
-            <Text>Forgot Password?</Text>
-          </TouchableOpacity>
-        )}
+      <Form.InputText
+        label='Email'
+        value={email}
+        onChange={setEmail}
+        isPassword={false}
+        style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+      />
+      <Form.InputText
+        label='Password'
+        value={password}
+        onChange={setPassword}
+        isPassword={true}
+        style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
+      />
 
-
-        <Form.SubmitButton
-          label={isLogin ? 'Login' : 'Create'}
-          onPress={handleAuthentication}
-          style={{backgroundColor: 'black',  margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
-          textStyle={{color: 'white', fontWeight: 'bold'}}
-        />
-        </Form>
-      </View>
-    // </ImageBackground>
+      <Form.SubmitButton
+        label={isLogin ? 'Login' : 'Create'}
+        onPress={handleAuthentication}
+        style={{backgroundColor: 'black',  margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
+        textStyle={{color: 'white', fontWeight: 'bold'}}
+      />
+      </Form>
+    </View>
 
     
   )
