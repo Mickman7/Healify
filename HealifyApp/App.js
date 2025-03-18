@@ -26,83 +26,32 @@ const Tab = createBottomTabNavigator();
 
 export const UserTypeContext = createContext();
 
-
 function PatientDetailStack() {
   return(
     <Stack.Navigator initialRouteName='Patient Personal Info'>
       <Stack.Screen name='Patient Personal Info' component={PatientInfoScreen}/>
       <Stack.Screen name='PatientAddressScreen' component={PatientAddressScreen}/>
       <Stack.Screen name='PatientHistoryScreen' component={PatientHistoryScreen}/>
+>>>>>>> main
     </Stack.Navigator>
-  ); 
-
-}
-
-function ClinicianDetailStack() {
-  return(
-    <Stack.Navigator initialRouteName='Clinician Personal Info'>
-      <Stack.Screen name='Clinician Personal Info' component={ClinicialInfoScreen}/>
-      <Stack.Screen name='Clinician Credentials' component={ClinicianCredentialsScreen}/>
-      <Stack.Screen name='Clinician Work' component={ClinicianWorkScreen}/>
-      <Stack.Screen name='Clinician Work Address' component={ClinicianWorkAddressScreen}/>
-    </Stack.Navigator>
-  ); 
-
-}
-
-
-function MyTabs() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === 'Home') iconName = 'home';
-          else if (route.name === 'Calculator') iconName = 'calculator';
-          else if (route.name === 'Profile') iconName = 'person';
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calculator" component={UserTypeScreen} />
-      <Tab.Screen name="Profile" component={PatientHome} />
-    </Tab.Navigator>
   );
 }
-
-
-
 
 
 export default function App() {
-    const [userType, setUserType] = useState(null);
+  const [userType, setUserType] = useState(null);
 
   return (
-    <UserTypeContext.Provider value={{userType, setUserType}}>
+    <UserTypeContext.Provider value={{ userType, setUserType }}>
       <NavigationContainer>
         <StatusBar style="auto" />
-        <Stack.Navigator initialRouteName="UserTypeScreen" screenOptions={{headerShown: false}}>
+        <Stack.Navigator
+          initialRouteName="UserTypeScreen"
+          screenOptions={{ headerShown: false }}
+        >
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
-          <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen} />
-          <Stack.Screen name="BottomTabs" component={MyTabs} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="PatientHome" component={PatientHome} />
-          <Stack.Screen name='PatientDetails' component={PatientDetailStack}/>
-          <Stack.Screen name='ClinicianDetails' component={ClinicianDetailStack}/>
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>
-    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
