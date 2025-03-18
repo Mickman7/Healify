@@ -5,7 +5,7 @@ import { FIREBASE_AUTH, FIREBASE_DB } from '../../FirebaseConfig';
 
 import Form from '../../components/Form';
 
-const UserHistoryScreen = ({navigation, route}) => {
+const PatientHostoryScreen = ({navigation, route}) => {
     const [prevDoc, setPrevDoc] = useState();
     const [preDocEmail, setPreDocEmail] = useState();
     const [currentDocName, setCurrentDocName] = useState();
@@ -17,7 +17,7 @@ const UserHistoryScreen = ({navigation, route}) => {
 
     const handlesubmit = async() => {
         try{
-            await addDoc(collection(FIREBASE_DB, 'client'), {
+            await addDoc(collection(FIREBASE_DB, 'patients'), {
                 uid: userId, 
                 fullName: fullName,
                 dob: dob,
@@ -36,12 +36,12 @@ const UserHistoryScreen = ({navigation, route}) => {
                 
               });
 
+              console.log('User details submitted successfully!');
+              navigation.navigate('Home')
         }catch(err) {
             console.error("Error submitting user details:", err.message)
         }
         
-          console.log('User details submitted successfully!');
-          navigation.navigate('Home')
 
     }
 
@@ -91,7 +91,7 @@ const UserHistoryScreen = ({navigation, route}) => {
   )
 }
 
-export default UserHistoryScreen
+export default PatientHostoryScreen
 
 const styles = StyleSheet.create({
     formContainer: {

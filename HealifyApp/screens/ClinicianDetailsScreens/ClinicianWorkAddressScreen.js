@@ -1,20 +1,61 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Form from '../../components/Form';
+import { collection, addDoc, serverTimestamp} from 'firebase/firestore';
+import { FIREBASE_AUTH, FIREBASE_DB } from '../../FirebaseConfig';
 
-const UserAddressScreen = ({navigation, route}) => {
-const [country, setCountry] = useState();
-const [street, setStreet] = useState();
-const [addressLineTwo, setAddressLineTwo] = useState();
-const [city, setCity] = useState();
-const [postcode, setPostcode] = useState();
+const ClinicianWorkAddressScreen = ({navigation, route}) => {
+  const [country, setCountry] = useState();
+  const [street, setStreet] = useState();
+  const [addressLineTwo, setAddressLineTwo] = useState();
+  const [city, setCity] = useState();
+  const [postcode, setPostcode] = useState();
 
-const {fullName, dob, sex, ethnicity} = route.params;
+  const userId = FIREBASE_AUTH.currentUser.uid;
+  const {fullName, dob, sex, bio, licenseNum, issueAuth, expiryDate, institution, additionalCert, specialisation, yrsExperience, affiliation} = route.params;
+
+
+  const handlesubmit = async() => {
+    try{
+        await addDoc(collection(FIREBASE_DB, 'clinicians'), {
+            uid: userId, 
+            fullName: fullName,
+            dob: dob,
+            sex: sex,
+            bio: bio,
+            licenseNum: licenseNum,
+            issueAuth: issueAuth,
+            expiryDate: expiryDate,
+            institution: institution,
+            additionalCert: additionalCert,
+            specialisation: specialisation,
+            yearsExperience: yrsExperience,
+            affiliations: affiliation,
+            country: country,
+            street: street,
+            addressLineTwo: addressLineTwo,
+            city: city,
+            postcode: postcode,
+            timestamp: serverTimestamp()
+            
+          });
+          console.log('User details submitted successfully!');
+          navigation.navigate('Home')
+
+    }catch(err) {
+        Alert.alert("Error submitting user details:", err.message)
+    }
+    
+
+}
+
+
+
 
   return (
     <View style={styles.formContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={styles.title}>Address</Text>
+            <Text style={styles.title}>Work Address</Text>
             <Image source={require('../../assets/AppLogo.png')} style={{width: 75, height: 75}}/>
         </View>
 
@@ -56,14 +97,14 @@ const {fullName, dob, sex, ethnicity} = route.params;
             style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
         />
       
-      <TouchableOpacity onPress={() => navigation.navigate('UserHistoryScreen', {fullName, dob, sex, ethnicity, country, street, addressLineTwo, city, postcode})} style={styles.button}>
-        <Text style={styles.buttonText}>Next</Text>
+      <TouchableOpacity onPress={handlesubmit} style={styles.button}>
+        <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-export default UserAddressScreen
+export default ClinicianWorkAddressScreen
 
 const styles = StyleSheet.create({
   formContainer: {

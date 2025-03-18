@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert, ImageBackground, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { UserTypeContext } from '../App'
 
 import Form from '../components/Form'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import { collection, query, orderBy, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,onAuthStateChanged, signOut } from "firebase/auth";
+import { collection,getDoc, addDoc, doc, serverTimestamp, firestore, setDoc } from 'firebase/firestore';
 
-import { FIREBASE_AUTH, FIREBASE_DB } from '../FirebaseConfig'; 
+import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from '../FirebaseConfig'; 
 
 
 const AuthenticationScreen = ({navigation, route}) => {
@@ -23,6 +23,9 @@ const AuthenticationScreen = ({navigation, route}) => {
     const { userType } = useContext(UserTypeContext);
 
 
+    
+
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
           setUser(user);
@@ -32,8 +35,6 @@ const AuthenticationScreen = ({navigation, route}) => {
       }, []);
 
     const handleAuthentication = async () => {
-
-
       if (!email || !password) {
           console.error("Email or password is empty.");
           return;
@@ -47,21 +48,42 @@ const AuthenticationScreen = ({navigation, route}) => {
       
         try {
           if (isLogin) {
-            signInWithEmailAndPassword(auth, email, password);
-            navigation.navigate('Home')
-            console.log('User signed in successfully!');
-  
-          } else {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
             const user = userCredential.user;
-            await addDoc(collection(FIREBASE_DB, 'users'), {
-              uid: user.uid, 
+            const userDocRef = doc(FIREBASE_DB, 'users', user.uid);
+            const userDoc = await getDoc(userDocRef);
+            if(userDoc.exists()){
+              const userData = userDoc.data();
+              const storedUserType = userData.userType;
+              if(userType === storedUserType){
+                console.log('User signed in successfully!');
+                navigation.navigate('BottomTabs')
+              }else{
+                Alert.alert('Error', 'The selected user type does not match your account.');
+              }
+            }else{
+              Alert.alert('Error', 'User data not found.');
+            }
+            
+          } else {
+            const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+            const user = userCredential.user;
+            const uid = user.uid; //Making sure the collection uid is the same as the auth uid
+
+            const userDocRef = doc(FIREBASE_DB, 'users', uid);
+            await setDoc(userDocRef, {
+              userId: user.uid, 
               email: user.email,
               userType: userType,
             });
             console.log('User details submitted successfully!');
   
-            navigation.navigate('Home');
+            if(userType === 'Clinician'){
+              navigation.navigate('Home');
+            }
+            else if(userType === 'Patient'){
+              navigation.navigate('PatientHome')
+            }
             console.log('User created successfully!');
           }
           
@@ -70,38 +92,61 @@ const AuthenticationScreen = ({navigation, route}) => {
         }
     };
 
+
+    const handleForgotPassword = async() => {
+      try{
+        await sendPasswordResetEmail(FIREBASE_AUTH, email);
+        Alert.alert('Password reset email sent')
+
+      }catch(err) {
+        console.error(err);
+      }
+      
+    }
+
   return (
-    <View style={styles.formContainer}>
+    // <ImageBackground
+    //   source={require()} 
+    // >
 
-      <Form
-        isLogin={isLogin}
-        setIsLogin={setIsLogin}
-        style={{alignItems: 'center', marginTop: 40}}
-      >
+      <View style={styles.formContainer}>
 
-      <Form.InputText
-        label='Email'
-        value={email}
-        onChange={setEmail}
-        isPassword={false}
-        style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
-      />
-      <Form.InputText
-        label='Password'
-        value={password}
-        onChange={setPassword}
-        isPassword={true}
-        style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
-      />
+        <Form
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          style={{alignItems: 'center', marginTop: 40}}
+        >
 
-      <Form.SubmitButton
-        label={isLogin ? 'Login' : 'Create'}
-        onPress={handleAuthentication}
-        style={{backgroundColor: 'black',  margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
-        textStyle={{color: 'white', fontWeight: 'bold'}}
-      />
-      </Form>
-    </View>
+        <Form.InputText
+          label='Email'
+          value={email}
+          onChange={setEmail}
+          isPassword={false}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+        />
+        <Form.InputText
+          label='Password'
+          value={password}
+          onChange={setPassword}
+          isPassword={true}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
+        />
+        {isLogin && (
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text>Forgot Password?</Text>
+          </TouchableOpacity>
+        )}
+
+
+        <Form.SubmitButton
+          label={isLogin ? 'Login' : 'Create'}
+          onPress={handleAuthentication}
+          style={{backgroundColor: 'black',  margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
+          textStyle={{color: 'white', fontWeight: 'bold'}}
+        />
+        </Form>
+      </View>
+    // </ImageBackground>
 
     
   )
