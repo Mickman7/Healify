@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
+import NavigationBar from "./components/NavigationBar";
+
 // Screens
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -63,7 +65,7 @@ function ClinicianDetailStack() {
   );
 }
 
-function MyTabs() {
+function MyTabs({navigation}) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -76,6 +78,7 @@ function MyTabs() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
+      tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Calculator" component={UserTypeScreen} />

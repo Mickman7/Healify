@@ -4,11 +4,16 @@ import {
   TouchableOpacity,
   View,
   navigate,
+  Image,
+  ScrollView
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../FirebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { UserTypeContext } from "../App";
+import Screen from '../layout/Screen'
+import Header from '../layout/Header'
+import NavigationBar from '../components/NavigationBar'
 
 const HomeScreen = ({ navigation, route }) => {
   const { userType } = useContext(UserTypeContext);
@@ -45,7 +50,7 @@ const HomeScreen = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
       ) : (
-        <Screen>
+        <View>
           <Header
             headerText={"Home"}
             rightItem={
@@ -159,8 +164,8 @@ const HomeScreen = ({ navigation, route }) => {
               Early CKD may not have any symptoms
             </Text>
           </ScrollView>
-          <NavigationBar />
-        </Screen>
+          {/* <NavigationBar /> */}
+          </View>
       )}
     </View>
   );
