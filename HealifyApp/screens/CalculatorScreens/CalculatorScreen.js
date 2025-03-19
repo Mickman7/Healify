@@ -4,6 +4,7 @@ import Header from "../../layout/Header";
 import InputField from "../../components/InputField";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import React, { useState } from "react";
+import Button from "../../components/Button";
 
 const CalculatorScreen = () => {
   //State
@@ -56,6 +57,10 @@ const CalculatorScreen = () => {
           leftOption={"Black"}
           rightOption={"Non-black"}
         />
+        <View style={styles.buttonTray}>
+          <Button label={"Reset"} />
+          <Button label={"Calculate"} />
+        </View>
       </ScrollView>
     </Screen>
   );
@@ -82,6 +87,14 @@ const styles = StyleSheet.create({
   },
   infoParagraph: {
     marginBottom: 10,
+  },
+  buttonTray: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 50,
+    marginTop: 15,
   },
 });
 

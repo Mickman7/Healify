@@ -18,7 +18,7 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
     setCurrentOption(selectedOption);
     Animated.timing(toggleSelectAnimation, {
       toValue: selectedOption ? 1 : 0,
-      duration: 200,
+      duration: 300,
       useNativeDriver: false,
     }).start();
     if (onToggleSwitch) {
@@ -28,7 +28,7 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
 
   const translateX = toggleSelectAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, styles.toggleBar.width - 70],
+    outputRange: [0, styles.toggleBar.width / 2],
   });
 
   //View
@@ -41,10 +41,20 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
             style={[styles.highlight, { transform: [{ translateX }] }]}
           />
           <View style={styles.textContainerStyle}>
-            <Text style={{ color: !currentOption ? "#FFFFFF" : "#000000" }}>
+            <Text
+              style={{
+                color: !currentOption ? "#FFFFFF" : "#000000",
+                marginLeft: 35,
+              }}
+            >
               {leftOption}
             </Text>
-            <Text style={{ color: currentOption ? "#FFFFFF" : "#000000" }}>
+            <Text
+              style={{
+                color: currentOption ? "#FFFFFF" : "#000000",
+                marginRight: 35,
+              }}
+            >
               {rightOption}
             </Text>
           </View>
@@ -66,10 +76,10 @@ const styles = StyleSheet.create({
   },
   highlight: {
     position: "absolute",
-    width: 70,
+    width: 125,
     height: 50,
-    borderRadius: 25,
-    backgroundColor: "#4CAF50",
+    borderRadius: 10,
+    backgroundColor: "#000000",
     top: 0,
     left: 0,
   },
@@ -78,7 +88,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 10,
   },
   labelStyle: {
     paddingBottom: 10,
