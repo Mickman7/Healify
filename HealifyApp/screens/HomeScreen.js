@@ -1,14 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import { UserTypeContext } from "../App";
-import Header from "../layout/Header";
 import PatientHome from "./PatientHome";
 
 const HomeScreen = ({ navigation }) => {
