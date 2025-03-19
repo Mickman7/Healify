@@ -31,7 +31,6 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
       {userType === "Clinician" ? (
         <View>
           <Text>This is the Clinician Home Page</Text>
@@ -164,7 +163,6 @@ const HomeScreen = ({ navigation, route }) => {
               Early CKD may not have any symptoms
             </Text>
           </ScrollView>
-          {/* <NavigationBar /> */}
           </View>
       )}
     </View>

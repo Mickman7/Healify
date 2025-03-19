@@ -26,13 +26,15 @@ const NavigationBar = ({navigation, state, onPress}) => {
       return (
         <TouchableOpacity
           key={route.key}
-          style={[styles.tabItem, isActive === index && styles.activeTab]}
+          style={styles.tabItem}
           onPress={() => handleTabPress(route.name, index)}
         >
           {IconComponent && (
             <IconComponent
-              color={isActive === index ? 'yellow' : 'white'} 
-              size={5} 
+              width={45} 
+              height={45} 
+              fill={isActive === index ? 'yellow' : 'white'}
+              
             />
           )}
         </TouchableOpacity>
@@ -54,11 +56,10 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   tabItem: {
-    alignItems: 'center',
-    padding: 10,
+    justifyContent: 'center',
   },
   activeTab: {
-
+    backgroundColor: 'yellow'
   }
 });
 

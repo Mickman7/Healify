@@ -20,6 +20,7 @@ import ClinicialInfoScreen from "./screens/ClinicianDetailsScreens/ClinicianInfo
 import ClinicianCredentialsScreen from "./screens/ClinicianDetailsScreens/ClinicianCredentialsScreen";
 import ClinicianWorkScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkScreen";
 import ClinicianWorkAddressScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkAddressScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,21 +69,11 @@ function ClinicianDetailStack() {
 function MyTabs({navigation}) {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === "Home") iconName = "home";
-          else if (route.name === "Calculator") iconName = "calculator";
-          else if (route.name === "Profile") iconName = "person";
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
       tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Calculator" component={UserTypeScreen} />
-      <Tab.Screen name="Profile" component={PatientHome} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -105,7 +96,7 @@ export default function App() {
           />
           <Stack.Screen name="BottomTabs" component={MyTabs} />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="PatientHome" component={PatientHome} />
+          {/* <Stack.Screen name="PatientHome" component={PatientHome} /> */}
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen
             name="ClinicianDetails"
