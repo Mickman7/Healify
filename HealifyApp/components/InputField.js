@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   containerStyle: {
     padding: 10,
+    marginBottom: 10,
   },
   labelStyle: {
     paddingBottom: 10,

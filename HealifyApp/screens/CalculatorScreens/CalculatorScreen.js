@@ -42,10 +42,19 @@ const CalculatorScreen = () => {
           inputFieldLabel={"Creatinine Level (Serum Creatinine)"}
           placeholder={"µmol/L"}
         />
-        <ToggleSwitch leftText={"Male"} rightText={"Female"} />
+        <ToggleSwitch
+          label={"Sex"}
+          leftOption={"Male"}
+          rightOption={"Female"}
+        />
         <InputField
           inputFieldLabel={"Age (Years)"}
           placeholder={"Enter your age"}
+        />
+        <ToggleSwitch
+          label={"Ethnicity"}
+          leftOption={"Black"}
+          rightOption={"Non-black"}
         />
       </ScrollView>
     </Screen>

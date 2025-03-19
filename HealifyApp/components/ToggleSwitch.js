@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 
-const ToggleSwitch = ({ leftText, rightText, onToggleSwitch }) => {
+const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
   //State
   const toggleSelectAnimation = useRef(new Animated.Value(0)).current;
   const [currentOption, setCurrentOption] = useState(false);
@@ -33,21 +33,24 @@ const ToggleSwitch = ({ leftText, rightText, onToggleSwitch }) => {
 
   //View
   return (
-    <TouchableOpacity onPress={onTogglePress}>
-      <View style={styles.toggleBar}>
-        <Animated.View
-          style={[styles.highlight, { transform: [{ translateX }] }]}
-        />
-        <View style={styles.textContainerStyle}>
-          <Text style={{ color: !currentOption ? "white" : "black" }}>
-            {leftText}
-          </Text>
-          <Text style={{ color: currentOption ? "white" : "black" }}>
-            {rightText}
-          </Text>
+    <View style={styles.containerStyle}>
+      <Text style={styles.labelStyle}>{label}</Text>
+      <TouchableOpacity onPress={onTogglePress}>
+        <View style={styles.toggleBar}>
+          <Animated.View
+            style={[styles.highlight, { transform: [{ translateX }] }]}
+          />
+          <View style={styles.textContainerStyle}>
+            <Text style={{ color: !currentOption ? "#FFFFFF" : "#000000" }}>
+              {leftOption}
+            </Text>
+            <Text style={{ color: currentOption ? "#FFFFFF" : "#000000" }}>
+              {rightOption}
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -76,6 +79,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 10,
+  },
+  labelStyle: {
+    paddingBottom: 10,
+    color: "#999A9A",
+  },
+  containerStyle: {
+    paddingLeft: 10,
+    marginBottom: 10,
   },
 });
 
