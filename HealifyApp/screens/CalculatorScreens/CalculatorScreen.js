@@ -58,8 +58,12 @@ const CalculatorScreen = () => {
           rightOption={"Non-black"}
         />
         <View style={styles.buttonTray}>
-          <Button label={"Reset"} />
-          <Button label={"Calculate"} />
+          <Button label={"Reset"} buttonStyle={styles.resetButtonStyle} />
+          <Button
+            label={"Calculate"}
+            buttonStyle={styles.calculateButtonStyle}
+            labelStyle={styles.calculatorLabelStyle}
+          />
         </View>
       </ScrollView>
     </Screen>
@@ -95,6 +99,16 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     height: 50,
     marginTop: 15,
+  },
+  resetButtonStyle: {
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FFFFFF",
+  },
+  calculateButtonStyle: {
+    backgroundColor: "#001C45",
+  },
+  calculatorLabelStyle: {
+    color: "#FFFFFF",
   },
 });
 

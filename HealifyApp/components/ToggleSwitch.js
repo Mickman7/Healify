@@ -44,7 +44,8 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
             <Text
               style={{
                 color: !currentOption ? "#FFFFFF" : "#000000",
-                marginLeft: 35,
+                marginLeft: 55,
+                fontSize: 16,
               }}
             >
               {leftOption}
@@ -52,7 +53,8 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
             <Text
               style={{
                 color: currentOption ? "#FFFFFF" : "#000000",
-                marginRight: 35,
+                marginRight: 55,
+                fontSize: 16,
               }}
             >
               {rightOption}
@@ -66,20 +68,20 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
 
 const styles = StyleSheet.create({
   toggleBar: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#EEC0C3",
     flexDirection: "row",
     position: "relative",
     overflow: "hidden",
-    width: 250,
+    width: 350,
     height: 50,
     borderRadius: 10,
   },
   highlight: {
     position: "absolute",
-    width: 125,
+    width: 175,
     height: 50,
     borderRadius: 10,
-    backgroundColor: "#000000",
+    backgroundColor: "#C62C38",
     top: 0,
     left: 0,
   },
