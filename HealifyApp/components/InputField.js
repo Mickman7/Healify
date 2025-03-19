@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     minHeight: 50,
     backgroundColor: "#EEC0C3",
     fontSize: 16,
-    width: "50%",
+    width: 175,
   },
   containerStyle: {
     padding: 10,

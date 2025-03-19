@@ -5,12 +5,27 @@ import InputField from "../../components/InputField";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import React, { useState } from "react";
 import Button from "../../components/Button";
+import RadioButtonGroup from "../../components/RadioButtonGroup";
 
 const CalculatorScreen = () => {
+  //Initialisations
+  const unitsOptions = [
+    {
+      id: "1",
+      label: "µmol/L",
+      value: "µmol/L",
+    },
+    {
+      id: "2",
+      label: "mg/dL",
+      value: "mg/dL",
+    },
+  ];
+
   //State
   const [sexToggleValue, setSexToggleValue] = useState(false);
 
-  //
+  //Handlers
   const onSexTogglePress = (value) => setSexToggleValue(value);
 
   //View
@@ -39,19 +54,25 @@ const CalculatorScreen = () => {
           </Text>
           <Text style={styles.linkStyle}>Learn more</Text>
         </View>
-        <InputField
-          inputFieldLabel={"Creatinine Level (Serum Creatinine)"}
-          placeholder={"µmol/L"}
-        />
+        <View style={styles.rowStyle}>
+          <InputField
+            inputFieldLabel={"Creatinine Level (Serum Creatinine)"}
+            placeholder={"µmol/L"}
+          />
+          <RadioButtonGroup radioButtons={unitsOptions} />
+        </View>
         <ToggleSwitch
           label={"Sex"}
           leftOption={"Male"}
           rightOption={"Female"}
         />
-        <InputField
-          inputFieldLabel={"Age (Years)"}
-          placeholder={"Enter your age"}
-        />
+        <View style={styles.rowStyle}>
+          <InputField
+            inputFieldLabel={"Age (Years)"}
+            placeholder={"Enter your age"}
+          />
+          <Text style={styles.editLink}>Edit</Text>
+        </View>
         <ToggleSwitch
           label={"Ethnicity"}
           leftOption={"Black"}
@@ -109,6 +130,18 @@ const styles = StyleSheet.create({
   },
   calculatorLabelStyle: {
     color: "#FFFFFF",
+  },
+  rowStyle: {
+    flexDirection: "row",
+    maxWidth: "100%",
+    alignItems: "center",
+  },
+  editLink: {
+    textDecorationLine: "underline",
+    color: "rgba(0, 0, 0, 0.4)",
+    fontSize: 14,
+    marginTop: 50,
+    paddingLeft: 10,
   },
 });
 
