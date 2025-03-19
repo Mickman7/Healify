@@ -28,7 +28,7 @@ const ToggleSwitch = ({ leftText, rightText, onToggleSwitch }) => {
 
   const translateX = toggleSelectAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, styles.toggleBar.width / 2],
+    outputRange: [0, styles.toggleBar.width - 70],
   });
 
   //View
@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     position: "relative",
     overflow: "hidden",
-    width: 140,
+    width: 250,
     height: 50,
+    borderRadius: 10,
   },
   highlight: {
     position: "absolute",
