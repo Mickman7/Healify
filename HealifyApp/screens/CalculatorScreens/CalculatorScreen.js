@@ -23,10 +23,24 @@ const CalculatorScreen = () => {
   ];
 
   //State
-  const [sexToggleValue, setSexToggleValue] = useState(false);
+  const [creatineLevel, setCreatineLevel] = useState(null);
+  const [sex, setSex] = useState(false);
+  const [age, setAge] = useState(null);
+  const [ethnicity, setEthnicity] = useState(false);
 
   //Handlers
-  const onSexTogglePress = (value) => setSexToggleValue(value);
+  const onSexTogglePress = (value) => {
+    setSex(value);
+    console.log(value);
+  };
+  const onEthnicityTogglePress = (value) => {
+    setEthnicity(value);
+    console.log(value);
+  };
+  const handleClearInputFields = () => {
+    setCreatineLevel(null);
+    setAge(null);
+  };
 
   //View
   return (
@@ -65,6 +79,8 @@ const CalculatorScreen = () => {
           label={"Sex"}
           leftOption={"Male"}
           rightOption={"Female"}
+          onToggleSwitch={onSexTogglePress}
+          toggleValue={sex}
         />
         <View style={styles.rowStyle}>
           <InputField
@@ -77,9 +93,15 @@ const CalculatorScreen = () => {
           label={"Ethnicity"}
           leftOption={"Black"}
           rightOption={"Non-black"}
+          onToggleSwitch={onEthnicityTogglePress}
+          toggleValue={ethnicity}
         />
         <View style={styles.buttonTray}>
-          <Button label={"Reset"} buttonStyle={styles.resetButtonStyle} />
+          <Button
+            label={"Reset"}
+            buttonStyle={styles.resetButtonStyle}
+            onClick={handleClearInputFields}
+          />
           <Button
             label={"Calculate"}
             buttonStyle={styles.calculateButtonStyle}

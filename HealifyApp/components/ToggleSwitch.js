@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Animated,
   StyleSheet,
@@ -7,35 +7,39 @@ import {
   View,
 } from "react-native";
 
-const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
+const ToggleSwitch = ({
+  label,
+  leftOption,
+  rightOption,
+  onToggleSwitch,
+  toggleValue,
+}) => {
   //State
   const toggleSelectAnimation = useRef(new Animated.Value(0)).current;
-  const [currentOption, setCurrentOption] = useState(false);
 
-  //Handlers
-  const onTogglePress = () => {
-    const selectedOption = !currentOption;
-    setCurrentOption(selectedOption);
+  React.useEffect(() => {
     Animated.timing(toggleSelectAnimation, {
-      toValue: selectedOption ? 1 : 0,
+      toValue: toggleValue ? 1 : 0,
       duration: 300,
       useNativeDriver: false,
     }).start();
-    if (onToggleSwitch) {
-      onToggleSwitch(selectedOption);
-    }
-  };
+  }, [toggleValue]);
 
+  //Handlers
   const translateX = toggleSelectAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, styles.toggleBar.width / 2],
   });
 
+  const onPress = () => {
+    onToggleSwitch(!toggleValue);
+  };
+
   //View
   return (
     <View style={styles.containerStyle}>
       <Text style={styles.labelStyle}>{label}</Text>
-      <TouchableOpacity onPress={onTogglePress}>
+      <TouchableOpacity onPress={onPress}>
         <View style={styles.toggleBar}>
           <Animated.View
             style={[styles.highlight, { transform: [{ translateX }] }]}
@@ -43,7 +47,7 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
           <View style={styles.textContainerStyle}>
             <Text
               style={{
-                color: !currentOption ? "#FFFFFF" : "#000000",
+                color: !toggleValue ? "#FFFFFF" : "#000000",
                 marginLeft: 55,
                 fontSize: 16,
               }}
@@ -52,7 +56,7 @@ const ToggleSwitch = ({ label, leftOption, rightOption, onToggleSwitch }) => {
             </Text>
             <Text
               style={{
-                color: currentOption ? "#FFFFFF" : "#000000",
+                color: toggleValue ? "#FFFFFF" : "#000000",
                 marginRight: 55,
                 fontSize: 16,
               }}
