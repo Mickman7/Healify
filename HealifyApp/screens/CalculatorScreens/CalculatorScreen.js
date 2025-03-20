@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Button from "../../components/Button";
 import RadioButtonGroup from "../../components/RadioButtonGroup";
 
-const CalculatorScreen = () => {
+const CalculatorScreen = ({ navigation }) => {
   //Initialisations
   const unitsOptions = [
     {
@@ -54,6 +54,12 @@ const CalculatorScreen = () => {
   const getEthnicityMultiplier = () => {
     //true = Non-black, false = Black
     return ethnicity ? 1 : 1.21;
+  };
+
+  const goToResultsScreen = () => {
+    handleCalculation();
+    console.log("calculated");
+    navigation.navigate("Results Screen", { result: eGFR });
   };
 
   const handleCalculation = () => {
@@ -140,7 +146,7 @@ const CalculatorScreen = () => {
             label={"Calculate"}
             buttonStyle={styles.calculateButtonStyle}
             labelStyle={styles.calculatorLabelStyle}
-            onClick={handleCalculation}
+            onClick={goToResultsScreen}
           />
         </View>
       </ScrollView>

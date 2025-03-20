@@ -1,6 +1,5 @@
 import React, { useState, createContext } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -21,6 +20,7 @@ import ClinicianCredentialsScreen from "./screens/ClinicianDetailsScreens/Clinic
 import ClinicianWorkScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkScreen";
 import ClinicianWorkAddressScreen from "./screens/ClinicianDetailsScreens/ClinicianWorkAddressScreen";
 import CalculatorScreen from "./screens/CalculatorScreens/CalculatorScreen";
+import EGFRResultsScreen from "./screens/CalculatorScreens/EGFRResultsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,6 +66,26 @@ function ClinicianDetailStack() {
   );
 }
 
+function CalculatorStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Calculator Screen"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen
+        name="Calculator Screen"
+        component={CalculatorScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Results Screen"
+        component={EGFRResultsScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function MyTabs({ navigation }) {
   return (
     <Tab.Navigator
@@ -82,7 +102,7 @@ function MyTabs({ navigation }) {
       tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calculator" component={CalculatorScreen} />
+      <Tab.Screen name="Calculator" component={CalculatorStack} />
       <Tab.Screen name="Profile" component={PatientHome} />
     </Tab.Navigator>
   );
@@ -117,12 +137,3 @@ export default function App() {
     </UserTypeContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
