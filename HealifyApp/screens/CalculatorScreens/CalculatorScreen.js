@@ -28,6 +28,7 @@ const CalculatorScreen = () => {
   const [age, setAge] = useState(null);
   const [ethnicity, setEthnicity] = useState(false);
   const [selectedMeasurementUnits, setSelectedMeasurementUnits] = useState("1");
+  const [eGFR, setEGFR] = useState(null);
 
   //Handlers
   const handleClearInputFields = () => {
@@ -36,6 +37,33 @@ const CalculatorScreen = () => {
     setAge(null);
     setEthnicity(false);
     setSelectedMeasurementUnits("1");
+  };
+
+  const getCreatValue = () => {
+    return selectedMeasurementUnits === "1"
+      ? (creatineLevel / 88.4) ** -1.154
+      : creatineLevel ** -1.154;
+  };
+  const getAgeValue = () => {
+    return age ** -0.203;
+  };
+  const getSexMultiplier = () => {
+    //true = Female, false = Male
+    return sex ? 0.742 : 1;
+  };
+  const getEthnicityMultiplier = () => {
+    //true = Non-black, false = Black
+    return ethnicity ? 1 : 1.21;
+  };
+
+  const handleCalculation = () => {
+    const creatValue = getCreatValue();
+    const ageValue = getAgeValue();
+    const sexValue = getSexMultiplier();
+    const ethnicityValue = getEthnicityMultiplier();
+    var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
+    var roundedResult = Math.ceil(result);
+    setEGFR(roundedResult);
   };
 
   //View
@@ -70,6 +98,7 @@ const CalculatorScreen = () => {
             placeholder={"µmol/L"}
             value={creatineLevel}
             onValueChange={setCreatineLevel}
+            isNumeric={true}
           />
           <RadioButtonGroup
             radioButtons={unitsOptions}
@@ -90,6 +119,7 @@ const CalculatorScreen = () => {
             placeholder={"Enter your age"}
             value={age}
             onValueChange={setAge}
+            isNumeric={true}
           />
           <Text style={styles.editLink}>Edit</Text>
         </View>
@@ -110,6 +140,7 @@ const CalculatorScreen = () => {
             label={"Calculate"}
             buttonStyle={styles.calculateButtonStyle}
             labelStyle={styles.calculatorLabelStyle}
+            onClick={handleCalculation}
           />
         </View>
       </ScrollView>

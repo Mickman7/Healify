@@ -6,6 +6,7 @@ const InputField = ({
   value,
   onValueChange,
   customStyle,
+  isNumeric, //should evaluate to boolean value
 }) => {
   return (
     <View style={[customStyle, styles.containerStyle]}>
@@ -15,6 +16,7 @@ const InputField = ({
         placeholder={placeholder}
         value={value}
         onChangeText={onValueChange}
+        keyboardType={isNumeric ? "numeric" : undefined}
       />
     </View>
   );
