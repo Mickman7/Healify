@@ -1,17 +1,13 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import RadioGroup from "react-native-radio-buttons-group";
 
-const RadioButtonGroup = ({ radioButtons }) => {
-  //State
-  const [selectedOption, setSelectedOption] = useState(null);
-
+const RadioButtonGroup = ({ radioButtons, selectedOption, onOptionSelect }) => {
   //View
   return (
     <View style={styles.containerStyle}>
       <RadioGroup
         radioButtons={radioButtons}
-        onPress={setSelectedOption}
+        onPress={onOptionSelect}
         selectedId={selectedOption}
       />
     </View>

@@ -27,19 +27,15 @@ const CalculatorScreen = () => {
   const [sex, setSex] = useState(false);
   const [age, setAge] = useState(null);
   const [ethnicity, setEthnicity] = useState(false);
+  const [selectedMeasurementUnits, setSelectedMeasurementUnits] = useState("1");
 
   //Handlers
-  const onSexTogglePress = (value) => {
-    setSex(value);
-    console.log(value);
-  };
-  const onEthnicityTogglePress = (value) => {
-    setEthnicity(value);
-    console.log(value);
-  };
   const handleClearInputFields = () => {
     setCreatineLevel(null);
+    setSex(false);
     setAge(null);
+    setEthnicity(false);
+    setSelectedMeasurementUnits("1");
   };
 
   //View
@@ -72,20 +68,28 @@ const CalculatorScreen = () => {
           <InputField
             inputFieldLabel={"Creatinine Level (Serum Creatinine)"}
             placeholder={"µmol/L"}
+            value={creatineLevel}
+            onValueChange={setCreatineLevel}
           />
-          <RadioButtonGroup radioButtons={unitsOptions} />
+          <RadioButtonGroup
+            radioButtons={unitsOptions}
+            selectedOption={selectedMeasurementUnits}
+            onOptionSelect={setSelectedMeasurementUnits}
+          />
         </View>
         <ToggleSwitch
           label={"Sex"}
           leftOption={"Male"}
           rightOption={"Female"}
-          onToggleSwitch={onSexTogglePress}
+          onToggleSwitch={setSex}
           toggleValue={sex}
         />
         <View style={styles.rowStyle}>
           <InputField
             inputFieldLabel={"Age (Years)"}
             placeholder={"Enter your age"}
+            value={age}
+            onValueChange={setAge}
           />
           <Text style={styles.editLink}>Edit</Text>
         </View>
@@ -93,7 +97,7 @@ const CalculatorScreen = () => {
           label={"Ethnicity"}
           leftOption={"Black"}
           rightOption={"Non-black"}
-          onToggleSwitch={onEthnicityTogglePress}
+          onToggleSwitch={setEthnicity}
           toggleValue={ethnicity}
         />
         <View style={styles.buttonTray}>
