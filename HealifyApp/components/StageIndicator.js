@@ -28,11 +28,21 @@ const StageIndicator = ({ stage }) => {
       ? "Severely reduced kidney function"
       : "Very severe, or end stage kidney failure";
 
+  //Handlers
+  const getStageColour = () => {
+    if (stage == "1") return styles.greenContainerStyle;
+    if (stage == "2") return styles.yellowContainerStyle;
+    if (stage == "3a" || stage == "3b")
+      return styles.darkerYellowContainerStyle;
+    if (stage == "4") return styles.organgeContainerStyle;
+    if (stage == "5") return styles.redContainerStyle;
+  };
+
   //View
   return (
     <View style={styles.mainContainerStyle}>
       <Text>{stageDescription}</Text>
-      <Pressable style={styles.pressableContainerStyle}>
+      <Pressable style={[styles.pressableContainerStyle, getStageColour()]}>
         <Text style={styles.stageTextStyle}>Stage {stage}</Text>
         <Text style={styles.stageAnalysisStyle}>{stageAnalysis}</Text>
       </Pressable>
@@ -43,7 +53,6 @@ const StageIndicator = ({ stage }) => {
 const styles = StyleSheet.create({
   pressableContainerStyle: {
     borderRadius: 10,
-    backgroundColor: "#4C9A29",
     minWidth: "100%",
     maxWidth: "100%",
     padding: 15,
@@ -64,6 +73,21 @@ const styles = StyleSheet.create({
   stageTextStyle: {
     fontWeight: 500,
     paddingRight: 10,
+  },
+  greenContainerStyle: {
+    backgroundColor: "#4C9A29",
+  },
+  yellowContainerStyle: {
+    backgroundColor: "#FCC333",
+  },
+  darkerYellowContainerStyle: {
+    backgroundColor: "#FDBD20",
+  },
+  organgeContainerStyle: {
+    backgroundColor: "#E57C02",
+  },
+  redContainerStyle: {
+    backgroundColor: "#D94214",
   },
 });
 export default StageIndicator;
