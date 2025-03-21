@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const StageIndicator = ({ stage, onPress }) => {
+const StageIndicator = ({ stage, onPress, isDescriptionVisible }) => {
   //Initialisations
   const stageDescription =
     stage == "1"
@@ -41,7 +41,9 @@ const StageIndicator = ({ stage, onPress }) => {
   //View
   return (
     <View style={styles.mainContainerStyle}>
-      <Text>{stageDescription}</Text>
+      {isDescriptionVisible !== true ? undefined : (
+        <Text>{stageDescription}</Text>
+      )}
       <TouchableOpacity
         onPress={onPress}
         style={[styles.pressableContainerStyle, getStageColour()]}

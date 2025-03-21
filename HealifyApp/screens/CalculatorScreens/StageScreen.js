@@ -2,8 +2,12 @@ import { Image, StyleSheet } from "react-native";
 import Header from "../../layout/Header";
 import Screen from "../../layout/Screen";
 import Icons from "../../components/Icons";
+import StageIndicator from "../../components/StageIndicator";
 
-const StageScreen = () => {
+const StageScreen = ({ navigation, route }) => {
+  //Initialisations
+  const { stage } = route.params;
+
   //Handlers
   const handleNavigateBack = () => navigation.goBack();
 
@@ -21,6 +25,7 @@ const StageScreen = () => {
         leftItem={<Icons.Back />}
         onLeftItemPress={handleNavigateBack}
       />
+      <StageIndicator stage={stage} isDiscriptionVisible={false} />
     </Screen>
   );
 };

@@ -48,7 +48,11 @@ const EGRFRResultsScreen = ({ navigation, route }) => {
         </View>
       </View>
       <Text style={styles.unitStyle}> mL/min/1.73m²</Text>
-      <StageIndicator stage={stage} onPress={handleStageIndicatorPress} />
+      <StageIndicator
+        stage={stage}
+        onPress={handleStageIndicatorPress}
+        isDescriptionVisible={true}
+      />
     </Screen>
   );
 };
