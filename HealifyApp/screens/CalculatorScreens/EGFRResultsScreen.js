@@ -22,6 +22,10 @@ const EGRFRResultsScreen = ({ navigation, route }) => {
 
   //Handlers
   const handleNavigateBack = () => navigation.goBack();
+  const handleStageIndicatorPress = () => {
+    console.log(stage);
+    navigation.navigate("Stage Screen", { stage: stage });
+  };
 
   //View
   return (
@@ -44,7 +48,7 @@ const EGRFRResultsScreen = ({ navigation, route }) => {
         </View>
       </View>
       <Text style={styles.unitStyle}> mL/min/1.73m²</Text>
-      <StageIndicator stage={stage} />
+      <StageIndicator stage={stage} onPress={handleStageIndicatorPress} />
     </Screen>
   );
 };

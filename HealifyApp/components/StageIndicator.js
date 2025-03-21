@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const StageIndicator = ({ stage, onPress }) => {
   //Initialisations
@@ -42,10 +42,13 @@ const StageIndicator = ({ stage, onPress }) => {
   return (
     <View style={styles.mainContainerStyle}>
       <Text>{stageDescription}</Text>
-      <Pressable style={[styles.pressableContainerStyle, getStageColour()]}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.pressableContainerStyle, getStageColour()]}
+      >
         <Text style={styles.stageTextStyle}>Stage {stage}</Text>
         <Text style={styles.stageAnalysisStyle}>{stageAnalysis}</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
