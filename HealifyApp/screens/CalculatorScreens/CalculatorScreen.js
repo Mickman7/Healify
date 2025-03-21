@@ -70,6 +70,7 @@ const CalculatorScreen = ({ navigation }) => {
     var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
     var roundedResult = Math.ceil(result);
     setEGFR(roundedResult);
+    console.log(eGFR);
   };
 
   //View
