@@ -56,12 +56,6 @@ const CalculatorScreen = ({ navigation }) => {
     return ethnicity ? 1 : 1.21;
   };
 
-  const goToResultsScreen = () => {
-    handleCalculation();
-    console.log("calculated");
-    navigation.navigate("Results Screen", { result: eGFR });
-  };
-
   const handleCalculation = () => {
     const creatValue = getCreatValue();
     const ageValue = getAgeValue();
@@ -69,8 +63,7 @@ const CalculatorScreen = ({ navigation }) => {
     const ethnicityValue = getEthnicityMultiplier();
     var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
     var roundedResult = Math.ceil(result);
-    setEGFR(roundedResult);
-    console.log(eGFR);
+    navigation.navigate("Results Screen", { result: roundedResult });
   };
 
   //View
@@ -147,7 +140,7 @@ const CalculatorScreen = ({ navigation }) => {
             label={"Calculate"}
             buttonStyle={styles.calculateButtonStyle}
             labelStyle={styles.calculatorLabelStyle}
-            onClick={goToResultsScreen}
+            onClick={handleCalculation}
           />
         </View>
       </ScrollView>

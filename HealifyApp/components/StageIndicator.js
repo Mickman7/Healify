@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const StageIndicator = ({ stage }) => {
+const StageIndicator = ({ stage, onPress }) => {
   //Initialisations
   const stageDescription =
     stage == "1"
