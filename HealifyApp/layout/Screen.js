@@ -1,7 +1,9 @@
 import { StyleSheet, View } from "react-native";
 
-const Screen = ({ children }) => {
-  return <View style={styles.screenLayoutStyle}>{children}</View>;
+const Screen = ({ children, screenStyle }) => {
+  return (
+    <View style={[screenStyle, styles.screenLayoutStyle]}>{children}</View>
+  );
 };
 
 const styles = StyleSheet.create({
