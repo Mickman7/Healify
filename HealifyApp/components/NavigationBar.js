@@ -20,24 +20,27 @@ const NavigationBar = ({ navigation, state }) => {
   //View
   return (
     <View style={styles.navigationBarStyle}>
-      {state.routes.map((route, index) => {
-        const IconComponent = icons[route.name];
-        return (
-          <TouchableOpacity
-            key={route.key}
-            style={[styles.tabItem, isActive === index && styles.activeTab]}
-            onPress={() => handleTabPress(route.name, index)}
-          >
-            {IconComponent && (
-              <IconComponent
-                color={isActive === index ? "yellow" : "white"}
-                size={5}
-              />
-            )}
-          </TouchableOpacity>
-        );
-      })}
-    </View>
+    {state.routes.map((route, index) => {
+      const IconComponent = icons[route.name];
+      return (
+        <TouchableOpacity
+          key={route.key}
+          style={styles.tabItem}
+          onPress={() => handleTabPress(route.name, index)}
+        >
+          {IconComponent && (
+            <IconComponent
+              width={45} 
+              height={45} 
+              fill={isActive === index ? 'yellow' : 'white'}
+              
+            />
+          )}
+        </TouchableOpacity>
+      );
+    })}
+  </View>
+
   );
 };
 
@@ -51,9 +54,12 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   tabItem: {
-    align: "center",
-    paddingBottom: 10,
+    justifyContent: 'center',
   },
+  activeTab: {
+    backgroundColor: 'yellow'
+  }
+
 });
 
 export default NavigationBar;
