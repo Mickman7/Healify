@@ -1,12 +1,20 @@
 import { Text } from "react-native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-const Header = ({ leftItem, headerText, rightItem }) => {
+const Header = ({
+  leftItem,
+  headerText,
+  rightItem,
+  onRightItemPress,
+  onLeftItemPress,
+}) => {
   return (
     <View style={styles.headerLayoutStyle}>
-      <TouchableOpacity>{leftItem}</TouchableOpacity>
+      <TouchableOpacity onPress={onLeftItemPress}>{leftItem}</TouchableOpacity>
       <Text style={styles.titleStyle}>{headerText}</Text>
-      <TouchableOpacity>{rightItem}</TouchableOpacity>
+      <TouchableOpacity onPress={onRightItemPress}>
+        {rightItem}
+      </TouchableOpacity>
     </View>
   );
 };
