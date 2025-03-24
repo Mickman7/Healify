@@ -1,4 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Screen from "../../layout/Screen";
 import Header from "../../layout/Header";
 import InputField from "../../components/InputField";
@@ -66,6 +73,8 @@ const CalculatorScreen = ({ navigation }) => {
     navigation.navigate("Results Screen", { result: roundedResult });
   };
 
+  const handleLearnMoreClick = () => navigation.navigate("LearnMoreScreen");
+
   //View
   return (
     <Screen screenStyle={styles.screenStyle}>
@@ -90,7 +99,9 @@ const CalculatorScreen = ({ navigation }) => {
             naturally declines with age and can be significantly reduced in
             kidney disease.
           </Text>
-          <Text style={styles.linkStyle}>Learn more</Text>
+          <TouchableOpacity onPress={handleLearnMoreClick}>
+            <Text style={styles.linkStyle}>Learn more</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.rowStyle}>
           <InputField
