@@ -125,6 +125,7 @@ const AuthenticationScreen = ({navigation, route}) => {
           onChange={setEmail}
           isPassword={false}
           style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, backgroundColor: 'white'}}
+          textStyle={{color: 'white'}}
         />
         <Form.InputText
           label='Password'
@@ -132,6 +133,7 @@ const AuthenticationScreen = ({navigation, route}) => {
           onChange={setPassword}
           isPassword={true}
           style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, backgroundColor: 'white'}}
+          textStyle={{color: 'white'}}
         />
         
         {isLogin && (

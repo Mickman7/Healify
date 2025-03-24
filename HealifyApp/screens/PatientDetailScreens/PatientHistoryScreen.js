@@ -57,7 +57,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             value={prevDoc}
             onChange={setPrevDoc}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -65,7 +65,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             value={preDocEmail}
             onChange={setPreDocEmail}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -73,7 +73,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             value={currentDocName}
             onChange={setCurrentDocName}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -81,7 +81,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             value={currentDocEmail}
             onChange={setCurrentDocEmail}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
       
       <TouchableOpacity onPress={handlesubmit} style={styles.button}>

@@ -5,8 +5,8 @@ import PatientHome from "./PatientHome";
 import ClinicianHome from "./ClinicianHome";
 
 const HomeScreen = ({ navigation }) => {
-  // const { userType } = useContext(UserTypeContext);
-  const userType = 'Clinician'
+  const { userType } = useContext(UserTypeContext);
+  // const userType = 'Clinician'
 
   const handleSubmit = () => {
     if (userType === "Clinician") {

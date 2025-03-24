@@ -25,35 +25,35 @@ const {fullName, dob, sex, ethnicity} = route.params;
             value={country}
             onChange={setCountry}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
         <Form.InputText
             label='Street Address'
             value={street}
             onChange={setStreet}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
         <Form.InputText
             label='Address Line 2'
             value={addressLineTwo}
             onChange={setAddressLineTwo}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
         <Form.InputText
             label='City'
             value={city}
             onChange={setCity}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
         <Form.InputText
             label='Postcode'
             value={postcode}
             onChange={setPostcode}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
       
       <TouchableOpacity onPress={() => navigation.navigate('PatientHistoryScreen', {fullName, dob, sex, ethnicity, country, street, addressLineTwo, city, postcode})} style={styles.button}>

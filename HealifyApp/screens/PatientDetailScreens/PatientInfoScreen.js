@@ -8,6 +8,7 @@ const PatientInfoScreen = ({navigation}) => {
     const [dob, setDob] = useState();
     const [sex, setSex] = useState(['Male', 'Female', 'Other']);
     const [ethnicity, setEthnicity] = useState(['White British', 'White Irish', 'Black or Black British', 'Asian or Asian British', 'Other (Please Specify)']);
+    const [nhsNum, setNhsNum] = useState();
 
     const [selectedValueSex, setSelectedValueSex] = useState('');
     const [selectedValueEthnicity, setSelectedValueEthnicity] = useState('');
@@ -25,7 +26,7 @@ const PatientInfoScreen = ({navigation}) => {
             value={fullName}
             onChange={setFullName}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -33,7 +34,7 @@ const PatientInfoScreen = ({navigation}) => {
             value={dob}
             onChange={setDob}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputSelect
@@ -41,6 +42,7 @@ const PatientInfoScreen = ({navigation}) => {
             options={sex}
             onValueChange={(value) => setSelectedValueSex(value)}
             style={{width: 350, margin: 15}}
+            textStyle={{fontWeight: 'bold'}}
         />
 
         <Form.InputSelect
@@ -48,6 +50,15 @@ const PatientInfoScreen = ({navigation}) => {
             options={ethnicity}
             onValueChange={(value) => setSelectedValueEthnicity()}
             style={{width: 350,}}
+            textStyle={{fontWeight: 'bold'}}
+        />
+
+        <Form.InputText
+            label='NHS Number'
+            value={nhsNum}
+            onChange={setNhsNum}
+            isPassword={false}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
 
