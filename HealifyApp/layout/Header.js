@@ -1,16 +1,21 @@
 import { Text } from "react-native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Icons from "../components/Icons";
+import { useNavigation } from "@react-navigation/native";
 
-const Header = ({
-  leftItem,
-  headerText,
-  rightItem,
-  onRightItemPress,
-  onLeftItemPress,
-}) => {
+const Header = ({ headerText, rightItem, onRightItemPress }) => {
+  //Initialisations
+  const navigation = useNavigation();
+
+  //Handlers
+  const onBackPress = () => navigation.goBack();
+
+  //View
   return (
     <View style={styles.headerLayoutStyle}>
-      <TouchableOpacity onPress={onLeftItemPress}>{leftItem}</TouchableOpacity>
+      <TouchableOpacity onPress={onBackPress}>
+        {<Icons.Back />}
+      </TouchableOpacity>
       <Text style={styles.titleStyle}>{headerText}</Text>
       <TouchableOpacity onPress={onRightItemPress}>
         {rightItem}

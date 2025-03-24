@@ -24,6 +24,7 @@ import CalculatorScreen from "./screens/CalculatorScreens/CalculatorScreen";
 import EGFRResultsScreen from "./screens/CalculatorScreens/EGFRResultsScreen";
 import StageScreen from "./screens/CalculatorScreens/StageScreen";
 import FilesScreen from "./screens/FilesScreen";
+import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -78,6 +79,7 @@ function CalculatorStack() {
       <Stack.Screen name="Calculator Screen" component={CalculatorScreen} />
       <Stack.Screen name="Results Screen" component={EGFRResultsScreen} />
       <Stack.Screen name="Stage Screen" component={StageScreen} />
+      <Stack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
     </Stack.Navigator>
   );
 }
