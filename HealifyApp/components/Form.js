@@ -13,7 +13,7 @@ const Form = ({ children, isLogin, setIsLogin, style }) => {
   return (
     <View style={[styles.formContainer, style]}>
       <Text style={styles.formTitle}>{isLogin ? "Login" : "Register"}</Text>
-      <Image source={require("../assets/AppLogo.png")} style={styles.appLogo} />
+      <Image source={require("../assets/HealifyLogo.png")} style={styles.appLogo} />
       {children}
 
       <View style={styles.bottomContainer}>
