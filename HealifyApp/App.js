@@ -71,7 +71,10 @@ function ClinicianDetailStack() {
 
 function CalculatorStack() {
   return (
-    <Stack.Navigator initialRouteName="Calculator Screen">
+    <Stack.Navigator
+      initialRouteName="Calculator Screen"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="Calculator Screen" component={CalculatorScreen} />
       <Stack.Screen name="Results Screen" component={EGFRResultsScreen} />
       <Stack.Screen name="Stage Screen" component={StageScreen} />
@@ -86,7 +89,11 @@ function MyTabs({ navigation }) {
       tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calculator" component={CalculatorStack} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Calculator"
+        component={CalculatorStack}
+      />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
