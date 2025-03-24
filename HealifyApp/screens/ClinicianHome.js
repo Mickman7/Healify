@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useN } from 'react'
 import UploadCSV from '../components/UploadCSV'
 import { Ionicons } from "@expo/vector-icons";
 import Header from '../layout/Header';
@@ -7,6 +7,7 @@ import Button from '../components/Button';
 
 
 const ClinicianHome = ({navigation}) => {
+    // const navigation = useNavigation();
 
     const [totalPatients, setTotalPatients] = useState('36');
     const [value, setValue] = useState(null);
@@ -25,7 +26,9 @@ const ClinicianHome = ({navigation}) => {
       <View style={{justifyContent: 'center', marginVertical: 50}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '90%', marginBottom: 15}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>Upload CSV File</Text>
-            <Ionicons name='information-circle-outline' size={30} color='#001C45'/>
+            <TouchableOpacity onPress={() => navigation.navigate('UploadCsvGuide')}>
+                <Ionicons name='information-circle-outline' size={30} color='#001C45'/>
+            </TouchableOpacity>
         </View>
         <UploadCSV/>
       </View>
@@ -56,7 +59,7 @@ const ClinicianHome = ({navigation}) => {
       </View>
 
       <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row'}}>
-        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen')}>
+        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen', {})}>
             <Ionicons name='folder-open' size={30} color='white'/>
         </TouchableOpacity>
         <TextInput 

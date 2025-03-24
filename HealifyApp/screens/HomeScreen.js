@@ -5,7 +5,8 @@ import PatientHome from "./PatientHome";
 import ClinicianHome from "./ClinicianHome";
 
 const HomeScreen = ({ navigation }) => {
-  const { userType } = useContext(UserTypeContext);
+  // const { userType } = useContext(UserTypeContext);
+  const userType = 'Clinician'
 
   const handleSubmit = () => {
     if (userType === "Clinician") {
@@ -20,9 +21,9 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {userType === "Clinician" ? (
-        <ClinicianHome/>
+        <ClinicianHome navigation={navigation}/>
       ) : (
-        <PatientHome />
+        <PatientHome navigation={navigation}/>
       )}
     </View>
   );
