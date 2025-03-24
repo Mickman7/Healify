@@ -26,6 +26,7 @@ import StageScreen from "./screens/CalculatorScreens/StageScreen";
 import FilesScreen from "./screens/FilesScreen";
 import ClinicianHome from "./screens/ClinicianHome";
 import UploadCsvGuideScreen from "./screens/UploadCsvGuideScreen";
+import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -77,47 +78,29 @@ function CalculatorStack() {
       initialRouteName="Calculator Screen"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen
-        name="Calculator Screen"
-        component={CalculatorScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Results Screen"
-        component={EGFRResultsScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Stage Screen"
-        component={StageScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Calculator Screen" component={CalculatorScreen} />
+      <Stack.Screen name="Results Screen" component={EGFRResultsScreen} />
+      <Stack.Screen name="Stage Screen" component={StageScreen} />
+      <Stack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
     </Stack.Navigator>
   );
 }
 
-// function ClinicianHomeStack(){
-//   return(
-//     <Stack.Navigator
-//       initialRouteName="Calculator Screen"
-//       screenOptions={{ headerShown: false }}
-//     >
-//       <Stack.Screen name="ClinicianHome" component={ClinicianHome}/>
-//       <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen}/>
-//     </Stack.Navigator>
 
-//   );
-// }
 
 function MyTabs({ navigation }) {
   return (
     <Tab.Navigator
+      screenOptions={{ headerShown: false }}
       tabBar={(props) => <NavigationBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calculator" component={CalculatorStack} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Calculator"
+        component={CalculatorStack}
+      />
       <Tab.Screen name="Profile" component={ProfileScreen} />
-
     </Tab.Navigator>
   );
 }
@@ -134,14 +117,20 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
-          <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen} />
-          <Stack.Screen name="BottomTabs" component={MyTabs} />
+          <Stack.Screen
+            name="AuthenticationScreen"
+            component={AuthenticationScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="BottomTabs"
+            component={MyTabs}
+          />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
           <Stack.Screen name="FileScreen" component={FilesScreen} />
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
-
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>
