@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import { UserTypeContext } from "../App";
 import PatientHome from "./PatientHome";
+import ClinicianHome from "./ClinicianHome";
 
 const HomeScreen = ({ navigation }) => {
   const { userType } = useContext(UserTypeContext);
@@ -19,22 +20,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {userType === "Clinician" ? (
-        <View>
-          <Text>This is the Clinician Home Page</Text>
-          <TouchableOpacity
-            onPress={handleSubmit}
-            style={{
-              borderWidth: 1,
-              padding: 5,
-              width: 100,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 100,
-            }}
-          >
-            <Text>Button</Text>
-          </TouchableOpacity>
-        </View>
+        <ClinicianHome/>
       ) : (
         <PatientHome />
       )}

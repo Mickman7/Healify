@@ -23,7 +23,7 @@ const UserTypeScreen = ({navigation}) => {
                 }}
                 style={styles.button}
             >
-                <Text>Patient</Text>
+                <Text style={styles.buttonText}>Patient</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -33,7 +33,7 @@ const UserTypeScreen = ({navigation}) => {
                 }}
                 style={styles.button}
             >
-                <Text>Clinician</Text>
+                <Text style={styles.buttonText}>Clinician</Text>
             </TouchableOpacity>
         </View>
        
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         margin: 50,
+        justifyContent: 'space-evenly'
     },
     button: {
         borderWidth: 1,
@@ -62,8 +63,13 @@ const styles = StyleSheet.create({
         width: 150,
         height: 75,
         padding: 10,
-        margin: 10,
+        margin: 15,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#001C45'
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold'
     }
 })

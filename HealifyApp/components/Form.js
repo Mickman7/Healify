@@ -24,8 +24,8 @@ const Form = ({ children, isLogin, setIsLogin, style }) => {
           }}
         >
           {isLogin
-            ? `Don't have an account? Sign Up`
-            : "Already have an account? Sign In"}
+            ? (<Text style={{color: 'white', fontWeight: 'bold'}}>Don't have an account? Register</Text>)
+            : (<Text style={{color: 'white', fontWeight: 'bold'}}>Already have an account? Login</Text>)}
         </Text>
       </View>
     </View>
@@ -84,13 +84,16 @@ const styles = StyleSheet.create({
   formTitle: {
     fontWeight: "bold",
     fontSize: 30,
+    color: 'white'
   },
   item: {
     justifyContent: "center",
   },
-  itemLabel: {},
+  itemLabel: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
   itemTextInput: {
-    borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     maxWidth: 400,

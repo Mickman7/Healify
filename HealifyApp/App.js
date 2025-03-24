@@ -23,6 +23,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import CalculatorScreen from "./screens/CalculatorScreens/CalculatorScreen";
 import EGFRResultsScreen from "./screens/CalculatorScreens/EGFRResultsScreen";
 import StageScreen from "./screens/CalculatorScreens/StageScreen";
+import FilesScreen from "./screens/FilesScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -118,17 +119,12 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
-          <Stack.Screen
-            name="AuthenticationScreen"
-            component={AuthenticationScreen}
-          />
+          <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen} />
           <Stack.Screen name="BottomTabs" component={MyTabs} />
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="FileScreen" component={FilesScreen} />
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
-          <Stack.Screen
-            name="ClinicianDetails"
-            component={ClinicianDetailStack}
-          />
+          <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>

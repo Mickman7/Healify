@@ -7,6 +7,7 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPassword
 import { collection,getDoc, addDoc, doc, serverTimestamp, firestore, setDoc } from 'firebase/firestore';
 
 import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from '../FirebaseConfig'; 
+import LoginBackgroundImg from '../assets/LoginBackgroundImg.png'
 
 
 const AuthenticationScreen = ({navigation, route}) => {
@@ -105,9 +106,10 @@ const AuthenticationScreen = ({navigation, route}) => {
     }
 
   return (
-    // <ImageBackground
-    //   source={require()} 
-    // >
+    <ImageBackground
+      source={LoginBackgroundImg} 
+      style={styles.backgoundImg}
+    >
 
       <View style={styles.formContainer}>
 
@@ -118,22 +120,23 @@ const AuthenticationScreen = ({navigation, route}) => {
         >
 
         <Form.InputText
-          label='Email'
+          label='Email Address'
           value={email}
           onChange={setEmail}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, backgroundColor: 'white'}}
         />
         <Form.InputText
           label='Password'
           value={password}
           onChange={setPassword}
           isPassword={true}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, backgroundColor: 'white'}}
         />
+        
         {isLogin && (
           <TouchableOpacity onPress={handleForgotPassword}>
-            <Text>Forgot Password?</Text>
+            <Text style={{color: 'white', fontWeight: 'bold', marginLeft: 200, marginVertical: 10}}>Forgot Password?</Text>
           </TouchableOpacity>
         )}
 
@@ -141,12 +144,12 @@ const AuthenticationScreen = ({navigation, route}) => {
         <Form.SubmitButton
           label={isLogin ? 'Login' : 'Create'}
           onPress={handleAuthentication}
-          style={{backgroundColor: 'black',  margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
-          textStyle={{color: 'white', fontWeight: 'bold'}}
+          style={{backgroundColor: 'white', margin: 15, width: 120, height: 50, padding: 5, textAlign: 'center', borderRadius: 15}}
+          textStyle={{color: 'black', fontWeight: 'bold'}}
         />
         </Form>
       </View>
-    // </ImageBackground>
+    </ImageBackground>
 
     
   )
@@ -158,5 +161,8 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: 16,
     marginTop: 40,
+  },
+  backgoundImg: {
+    height: '100%'
   }
 })
