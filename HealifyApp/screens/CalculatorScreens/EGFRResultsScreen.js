@@ -31,7 +31,7 @@ const EGRFRResultsScreen = ({ navigation, route }) => {
   return (
     <Screen>
       <Header
-        headerText={"Calculator"}
+        headerText={"Results"}
         rightItem={
           <Image
             source={require("../../assets/AppLogo.png")}
