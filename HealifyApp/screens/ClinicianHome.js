@@ -58,7 +58,7 @@ const ClinicianHome = ({navigation}) => {
         </View>
       </View>
 
-      <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row'}}>
+      <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row', marginTop: 50}}>
         <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen', {})}>
             <Ionicons name='folder-open' size={30} color='white'/>
         </TouchableOpacity>

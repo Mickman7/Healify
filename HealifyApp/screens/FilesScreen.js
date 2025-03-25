@@ -51,8 +51,8 @@ const FilesScreen = ({navigation}) => {
         </ScrollView>
 
         <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row', alignSelf: 'flex-end'}}>
-            <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('Home')}>
-                <Ionicons name='folder-open' size={30} color='white'/>
+            <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('PatientResultList')}>
+                <Ionicons name='download-outline' size={30} color='white'/>
             </TouchableOpacity>
             <TextInput 
                 value={value}

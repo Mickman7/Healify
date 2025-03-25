@@ -42,6 +42,7 @@ const ProfileScreen = ({navigation}) => {
                 style={styles.logoStyling}
               />
             }
+            style={{}}
         />
         <View style={{justifyContent: 'space-evenly',}}>
             <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginHorizontal: 10, padding: 15, justifyContent: 'space-between', borderBottomWidth: 1}} onPress={onPressDetails}>

@@ -27,6 +27,7 @@ import FilesScreen from "./screens/FilesScreen";
 import ClinicianHome from "./screens/ClinicianHome";
 import UploadCsvGuideScreen from "./screens/UploadCsvGuideScreen";
 import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
+import PatientResultList from "./screens/PatientResultList";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,6 +87,15 @@ function CalculatorStack() {
   );
 }
 
+function ClinicianHomeStack(){
+  return(
+    <Stack.Navigator>
+      
+
+    </Stack.Navigator>
+  );
+}
+
 
 
 function MyTabs({ navigation }) {
@@ -131,6 +141,7 @@ export default function App() {
           <Stack.Screen name="FileScreen" component={FilesScreen} />
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
+          <Stack.Screen name="PatientResultList" component={PatientResultList} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>

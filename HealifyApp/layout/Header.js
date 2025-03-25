@@ -4,7 +4,7 @@ import Icons from "../components/Icons";
 import { useNavigation } from "@react-navigation/native";
 import AppLogo from "../assets/AppLogo.svg";
 
-const Header = ({ headerText }) => {
+const Header = ({ headerText, style }) => {
   //Initialisations
   const navigation = useNavigation();
 
@@ -13,7 +13,7 @@ const Header = ({ headerText }) => {
 
   //View
   return (
-    <View style={styles.headerLayoutStyle}>
+    <View style={[styles.headerLayoutStyle, style]}>
       <TouchableOpacity onPress={onBackPress}>
         {<Icons.Back />}
       </TouchableOpacity>
