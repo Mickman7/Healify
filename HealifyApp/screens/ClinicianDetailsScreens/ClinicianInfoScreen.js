@@ -21,7 +21,7 @@ const ClinicialInfoScreen = ({navigation, route}) => {
             value={fullName}
             onChange={setFullName}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -29,7 +29,7 @@ const ClinicialInfoScreen = ({navigation, route}) => {
             value={dob}
             onChange={setDob}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputSelect
@@ -37,6 +37,7 @@ const ClinicialInfoScreen = ({navigation, route}) => {
             options={sex}
             onValueChange={(value) => setSelectedValueSex(value)}
             style={{width: 350, margin: 15}}
+            textStyle={{fontWeight: 'bold'}}
         />
 
         <Form.InputText
@@ -44,7 +45,7 @@ const ClinicialInfoScreen = ({navigation, route}) => {
             value={bio}
             onChange={setBio}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
       

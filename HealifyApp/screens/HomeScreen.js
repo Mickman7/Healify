@@ -6,6 +6,7 @@ import PatientHomeScreen from "./PatientHomeScreen";
 
 const HomeScreen = ({ navigation }) => {
   const { userType } = useContext(UserTypeContext);
+  // const userType = 'Clinician'
 
   return (
     <View style={styles.container}>

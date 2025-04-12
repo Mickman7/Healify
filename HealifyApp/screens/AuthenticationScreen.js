@@ -7,7 +7,6 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPassword
 import { collection,getDoc, addDoc, doc, serverTimestamp, firestore, setDoc } from 'firebase/firestore';
 
 import { FIREBASE_APP, FIREBASE_AUTH, FIREBASE_DB } from '../FirebaseConfig'; 
-import LoginBackgroundImg from '../assets/LoginBackgroundImg.png'
 
 
 const AuthenticationScreen = ({navigation, route}) => {
@@ -78,13 +77,8 @@ const AuthenticationScreen = ({navigation, route}) => {
               userType: userType,
             });
             console.log('User details submitted successfully!');
-  
-            if(userType === 'Clinician'){
-              navigation.navigate('Home');
-            }
-            else if(userType === 'Patient'){
-              navigation.navigate('PatientHome')
-            }
+            navigation.navigate('Home');
+           
             console.log('User created successfully!');
           }
           
@@ -107,7 +101,7 @@ const AuthenticationScreen = ({navigation, route}) => {
 
   return (
     <ImageBackground
-      source={LoginBackgroundImg} 
+      source={require("../assets/LoginBackgroundImg.png")} 
       style={styles.backgoundImg}
     >
 
@@ -125,6 +119,7 @@ const AuthenticationScreen = ({navigation, route}) => {
           onChange={setEmail}
           isPassword={false}
           style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, backgroundColor: 'white'}}
+          textStyle={{color: 'white'}}
         />
         <Form.InputText
           label='Password'
@@ -132,6 +127,7 @@ const AuthenticationScreen = ({navigation, route}) => {
           onChange={setPassword}
           isPassword={true}
           style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, backgroundColor: 'white'}}
+          textStyle={{color: 'white'}}
         />
         
         {isLogin && (

@@ -13,7 +13,7 @@ const Form = ({ children, isLogin, setIsLogin, style }) => {
   return (
     <View style={[styles.formContainer, style]}>
       <Text style={styles.formTitle}>{isLogin ? "Login" : "Register"}</Text>
-      <Image source={require("../assets/AppLogo.png")} style={styles.appLogo} />
+      <Image source={require("../assets/HealifyLogo.png")} style={styles.appLogo} />
       {children}
 
       <View style={styles.bottomContainer}>
@@ -32,10 +32,10 @@ const Form = ({ children, isLogin, setIsLogin, style }) => {
   );
 };
 
-const InputText = ({ label, value, onChange, isPassword, style }) => {
+const InputText = ({ label, value, onChange, isPassword, style, textStyle }) => {
   return (
     <View style={styles.item}>
-      <Text style={styles.itemLabel}>{label}</Text>
+      <Text style={[styles.itemLabel, textStyle]}>{label}</Text>
       <TextInput
         value={value}
         onChangeText={onChange}
@@ -47,10 +47,10 @@ const InputText = ({ label, value, onChange, isPassword, style }) => {
   );
 };
 
-const InputSelect = ({ label, options, onValueChange, style }) => {
+const InputSelect = ({ label, options, onValueChange, style, textStyle }) => {
   return (
     <View style={[styles.inputContainer, style]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, textStyle]}>{label}</Text>
       <SelectList
         data={options.map((option) => ({ key: option, value: option }))}
         setSelected={onValueChange}
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   itemLabel: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold'
   },
   itemTextInput: {
@@ -103,4 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  inputContainer: {
+    marginVertical: 10,
+  }
 });

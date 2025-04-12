@@ -24,7 +24,10 @@ import CalculatorScreen from "./screens/CalculatorScreens/CalculatorScreen";
 import EGFRResultsScreen from "./screens/CalculatorScreens/EGFRResultsScreen";
 import StageScreen from "./screens/CalculatorScreens/StageScreen";
 import FilesScreen from "./screens/FilesScreen";
+import ClinicianHome from "./screens/ClinicianHome";
+import UploadCsvGuideScreen from "./screens/UploadCsvGuideScreen";
 import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
+import PatientResultList from "./screens/PatientResultList";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -84,6 +87,17 @@ function CalculatorStack() {
   );
 }
 
+function ClinicianHomeStack(){
+  return(
+    <Stack.Navigator>
+      
+
+    </Stack.Navigator>
+  );
+}
+
+
+
 function MyTabs({ navigation }) {
   return (
     <Tab.Navigator
@@ -123,12 +137,11 @@ export default function App() {
             component={MyTabs}
           />
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
           <Stack.Screen name="FileScreen" component={FilesScreen} />
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
-          <Stack.Screen
-            name="ClinicianDetails"
-            component={ClinicianDetailStack}
-          />
+          <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
+          <Stack.Screen name="PatientResultList" component={PatientResultList} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>

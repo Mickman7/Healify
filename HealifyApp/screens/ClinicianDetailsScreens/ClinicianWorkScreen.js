@@ -21,7 +21,7 @@ const ClinicianWorkScreen = ({navigation, route}) => {
             value={specialisation}
             onChange={setSpecialisation}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -29,7 +29,7 @@ const ClinicianWorkScreen = ({navigation, route}) => {
             value={yrsExperience}
             onChange={setYrsExperience}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
         <Form.InputText
@@ -37,7 +37,7 @@ const ClinicianWorkScreen = ({navigation, route}) => {
             value={affiliation}
             onChange={setAffiliation}
             isPassword={false}
-            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+            style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
 
       

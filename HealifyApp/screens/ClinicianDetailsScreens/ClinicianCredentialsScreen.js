@@ -25,35 +25,35 @@ const ClinicianCredentialsScreen = ({navigation, route}) => {
           value={licenseNum}
           onChange={setLicenseNum}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
       />
       <Form.InputText
           label='Issuing Authority'
           value={issueAuth}
           onChange={setIssueAuth}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
       />
       <Form.InputText
           label='License Expiry Date'
           value={expiryDate}
           onChange={setExpiryDate}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
       />
       <Form.InputText
           label='Medical Degree/Institution'
           value={institution}
           onChange={setInstitution}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
       />
       <Form.InputText
           label='Additional Certifications'
           value={additionalCert}
           onChange={setAdditionalCert}
           isPassword={false}
-          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15}}
+          style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
       />
     
     <TouchableOpacity onPress={() => navigation.navigate('Clinician Work', {fullName, dob, sex, bio, licenseNum, issueAuth, expiryDate, institution, additionalCert})} style={styles.button}>
