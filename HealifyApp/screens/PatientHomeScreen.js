@@ -25,8 +25,6 @@ const PatientHomeScreen = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Succesfully retrieved ", resultsList.length, " records");
-        console.log("Raw results list: ", resultsList);
         setResults(resultsList);
       } catch (error) {
         console.error(error);
@@ -41,8 +39,10 @@ const PatientHomeScreen = () => {
   return (
     <Screen>
       <Header headerText={"Home"} />
-      <Text style={styles.titleStyle}>History</Text>
-      <ResultsList results={results} />
+      <View style={styles.historyContainerStyle}>
+        <Text style={styles.titleStyle}>History</Text>
+        <ResultsList results={results} style={styles.listStyle} />
+      </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <View style={styles.ckdInfoContainerStyle}>
         <Text style={styles.underlineStyle}>
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     fontWeight: 600,
     fontSize: 30,
+    marginTop: 30,
   },
   subheadingStyle: {
     fontWeight: 500,
@@ -87,6 +88,10 @@ const styles = StyleSheet.create({
   },
   ckdInfoStyle: {
     fontSize: 14,
+  },
+  historyContainerStyle: {
+    height: "42%",
+    backgroundColor: "#052B420A",
   },
 });
 
