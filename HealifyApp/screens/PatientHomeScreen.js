@@ -1,21 +1,47 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Screen from "../layout/Screen";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../FirebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import ResultsList from "../components/ResultsList";
 
 const PatientHomeScreen = () => {
   //Initialisations
-  const pastPatientResults = "";
+  const userID = FIREBASE_AUTH.currentUser.uid;
+
+  //State
+  const [results, setResults] = useState([]);
+
+  useEffect(async () => {
+    const getPatientResults = async () => {
+      try {
+        const statement = collection(
+          FIREBASE_DB,
+          `users/${userID}/eGFRResults`
+        );
+        const results = await getDocs(statement);
+        const resultsList = results.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log("Succesfully retrieved ", resultsList.length, " records");
+        return resultsList;
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    };
+    const previousResults = await getPatientResults();
+    setResults(previousResults);
+  }, []);
 
   //View
   return (
     <Screen>
       <Header headerText={"Home"} />
       <Text style={styles.titleStyle}>History</Text>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-      ></ScrollView>
+      <ResultsList results={results} />
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <View style={styles.ckdInfoContainerStyle}>
         <Text style={styles.underlineStyle}>

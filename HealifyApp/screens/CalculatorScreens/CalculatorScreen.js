@@ -69,18 +69,6 @@ const CalculatorScreen = ({ navigation }) => {
     return Math.ceil(88.4 * (1 / creatinine) ** (1 / 1.154));
   };
 
-  const handleCalculation = () => {
-    const creatValue = getCreatValue();
-    const ageValue = getAgeValue();
-    const sexValue = getSexMultiplier();
-    const ethnicityValue = getEthnicityMultiplier();
-    var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
-    var roundedResult = Math.ceil(result);
-    const creatinineInMicromols = convertToMicromols(creatValue);
-    addEGFRResult(roundedResult, creatinineInMicromols);
-    navigation.navigate("Results Screen", { result: roundedResult });
-  };
-
   const addEGFRResult = async (eGFR, creatine) => {
     try {
       await addDoc(collection(FIREBASE_DB, `users/${userID}/eGFRResults`), {
@@ -92,6 +80,18 @@ const CalculatorScreen = ({ navigation }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCalculation = () => {
+    const creatValue = getCreatValue();
+    const ageValue = getAgeValue();
+    const sexValue = getSexMultiplier();
+    const ethnicityValue = getEthnicityMultiplier();
+    var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
+    var roundedResult = Math.ceil(result);
+    const creatinineInMicromols = convertToMicromols(creatValue);
+    addEGFRResult(roundedResult, creatinineInMicromols);
+    navigation.navigate("Results Screen", { result: roundedResult });
   };
 
   const handleLearnMoreClick = () => navigation.navigate("LearnMoreScreen");

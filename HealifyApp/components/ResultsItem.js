@@ -1,14 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
-const ResultsItem = () => {
+const ResultsItem = ({ result }) => {
   return (
-    <View>
+    <View style={styles.resultBackground}>
       <Text>ResultsItem</Text>
     </View>
-  )
-}
+  );
+};
 
-export default ResultsItem
+export default ResultsItem;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  resultBackground: {
+    borderColor: "lightgray",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginLeft: 8,
+    marginRight: 8,
+    height: "60%",
+    marginTop: 25,
+    width: 120,
+  },
+});
