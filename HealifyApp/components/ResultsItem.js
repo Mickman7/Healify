@@ -4,7 +4,7 @@ import React from "react";
 const ResultsItem = ({ result }) => {
   return (
     <View style={styles.resultBackground}>
-      <Text>ResultsItem</Text>
+      <Text>{result.date.toDate().toLocaleDateString()}</Text>
     </View>
   );
 };
