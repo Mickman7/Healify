@@ -1,10 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { format } from "date-fns";
 
 const ResultsItem = ({ result }) => {
+  //Initialisations
+  const date = result.date.toDate();
+  const formattedDate = format(date, "EEEE, MMMM d, h:mma");
+
+  //View
   return (
     <View style={styles.resultBackground}>
-      <Text>{result.date.toDate().toLocaleDateString()}</Text>
+      <Text>{formattedDate}</Text>
+      <Text>Stage </Text>
+      <Text>Your eGFR:</Text>
+      <Text>{result.eGFRLevel}</Text>
+      <Text>Your Creatinine Levels:</Text>
+      <Text>{Math.ceil(result.creatineLevel)}</Text>
     </View>
   );
 };
