@@ -95,6 +95,7 @@ const CalculatorScreen = ({ navigation }) => {
   };
 
   const handleLearnMoreClick = () => navigation.navigate("LearnMoreScreen");
+  const handleEditPress = () => navigation.navigate("PatientDetails");
 
   //View
   return (
@@ -145,7 +146,9 @@ const CalculatorScreen = ({ navigation }) => {
             onValueChange={setAge}
             isNumeric={true}
           />
-          <Text style={styles.editLink}>Edit</Text>
+          <TouchableOpacity onPress={handleEditPress}>
+            <Text style={styles.editLink}>Edit</Text>
+          </TouchableOpacity>
         </View>
         <ToggleSwitch
           label={"Ethnicity"}

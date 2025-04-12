@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import { format } from "date-fns";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const ResultsItem = ({ result }) => {
   //Initialisations
