@@ -1,5 +1,4 @@
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,6 +12,8 @@ import ToggleSwitch from "../../components/ToggleSwitch";
 import React, { useState } from "react";
 import Button from "../../components/Button";
 import RadioButtonGroup from "../../components/RadioButtonGroup";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../../FirebaseConfig";
 
 const CalculatorScreen = ({ navigation }) => {
   //Initialisations
@@ -29,13 +30,14 @@ const CalculatorScreen = ({ navigation }) => {
     },
   ];
 
+  const userID = FIREBASE_AUTH.currentUser.uid;
+
   //State
   const [creatineLevel, setCreatineLevel] = useState(null);
   const [sex, setSex] = useState(false);
   const [age, setAge] = useState(null);
   const [ethnicity, setEthnicity] = useState(false);
   const [selectedMeasurementUnits, setSelectedMeasurementUnits] = useState("1");
-  const [eGFR, setEGFR] = useState(null);
 
   //Handlers
   const handleClearInputFields = () => {
@@ -63,6 +65,23 @@ const CalculatorScreen = ({ navigation }) => {
     return ethnicity ? 1 : 1.21;
   };
 
+  const convertToMicromols = (creatinine) => {
+    return Math.ceil(88.4 * (1 / creatinine) ** (1 / 1.154));
+  };
+
+  const addEGFRResult = async (eGFR, creatine) => {
+    try {
+      await addDoc(collection(FIREBASE_DB, `users/${userID}/eGFRResults`), {
+        eGFRLevel: eGFR,
+        date: serverTimestamp(),
+        creatineLevel: creatine, //creatine saved as µmol/L
+      });
+      console.log("User details submitted successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleCalculation = () => {
     const creatValue = getCreatValue();
     const ageValue = getAgeValue();
@@ -70,6 +89,8 @@ const CalculatorScreen = ({ navigation }) => {
     const ethnicityValue = getEthnicityMultiplier();
     var result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
     var roundedResult = Math.ceil(result);
+    const creatinineInMicromols = convertToMicromols(creatValue);
+    addEGFRResult(roundedResult, creatinineInMicromols);
     navigation.navigate("Results Screen", { result: roundedResult });
   };
 
@@ -78,15 +99,7 @@ const CalculatorScreen = ({ navigation }) => {
   //View
   return (
     <Screen screenStyle={styles.screenStyle}>
-      <Header
-        headerText={"Calculator"}
-        rightItem={
-          <Image
-            source={require("../../assets/AppLogo.png")}
-            style={styles.logoStyling}
-          />
-        }
-      />
+      <Header headerText={"Calculator"} />
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.infoParagraph}>
           <Text style={styles.subtitle}>About eGFR</Text>

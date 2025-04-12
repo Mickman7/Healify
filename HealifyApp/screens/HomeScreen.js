@@ -1,30 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useContext } from "react";
 import { UserTypeContext } from "../App";
-import PatientHome from "./PatientHome";
 import ClinicianHome from "./ClinicianHome";
+import PatientHomeScreen from "./PatientHomeScreen";
 
 const HomeScreen = ({ navigation }) => {
   const { userType } = useContext(UserTypeContext);
   // const userType = 'Clinician'
 
-  const handleSubmit = () => {
-    if (userType === "Clinician") {
-      navigation.navigate("ClinicianDetails");
-    } else if (userType === "Patient") {
-      navigation.navigate("PatientDetails");
-    } else {
-      console.log("Unknown user type:", userType);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      {userType === "Clinician" ? (
-        <ClinicianHome navigation={navigation}/>
-      ) : (
-        <PatientHome navigation={navigation}/>
-      )}
+      {userType === "Clinician" ? <ClinicianHome /> : <PatientHomeScreen />}
     </View>
   );
 };
@@ -61,5 +47,8 @@ const styles = StyleSheet.create({
   },
   bulletList: {
     padding: 10,
+  },
+  container: {
+    height: "100%",
   },
 });
