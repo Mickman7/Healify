@@ -13,8 +13,8 @@ const PatientHomeScreen = () => {
   //State
   const [results, setResults] = useState([]);
 
-  useEffect(async () => {
-    const getPatientResults = async () => {
+  useEffect(() => {
+    async function getPatientResults() {
       try {
         const statement = collection(
           FIREBASE_DB,
@@ -26,16 +26,17 @@ const PatientHomeScreen = () => {
           ...doc.data(),
         }));
         console.log("Succesfully retrieved ", resultsList.length, " records");
-        return resultsList;
+        console.log("Raw results list: ", resultsList);
+        setResults(resultsList);
       } catch (error) {
         console.error(error);
-        return [];
+        return setResults([]);
       }
-    };
-    const previousResults = await getPatientResults();
-    setResults(previousResults);
+    }
+    getPatientResults();
   }, []);
 
+  if (!results) return;
   //View
   return (
     <Screen>
