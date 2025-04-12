@@ -25,7 +25,10 @@ const PatientHomeScreen = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setResults(resultsList);
+        const chronologicallySortedResults = [...resultsList].sort(
+          (a, b) => new Date(b.date.toDate()) - new Date(a.date.toDate())
+        );
+        setResults(chronologicallySortedResults);
       } catch (error) {
         console.error(error);
         return setResults([]);
