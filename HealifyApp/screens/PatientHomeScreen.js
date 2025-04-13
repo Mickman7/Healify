@@ -1,14 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View, navigate } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Screen from "../layout/Screen";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../FirebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import ResultsList from "../components/ResultsList";
+import { useNavigation } from "@react-navigation/native";
 
-const PatientHomeScreen = ({navigation}) => {
+const PatientHomeScreen = ({}) => {
   //Initialisations
   const userID = FIREBASE_AUTH.currentUser.uid;
+  const navigation = useNavigation();
 
   //State
   const [results, setResults] = useState([]);
@@ -37,8 +39,12 @@ const PatientHomeScreen = ({navigation}) => {
     getPatientResults();
   }, [results]);
 
-  if (!results) return;
+  //Handlers
+  const handleInfoPanePress = () => {
+    navigation.navigate("PatientHomeStack", { screen: "PatientHome" });
+  };
 
+  if (!results) return;
 
   //View
   return (
@@ -46,12 +52,16 @@ const PatientHomeScreen = ({navigation}) => {
       <Header headerText={"Home"} />
       <View style={styles.historyContainerStyle}>
         <Text style={styles.titleStyle}>History</Text>
-        <ResultsList results={results} style={styles.listStyle} scrollDirection={true}/>
+        <ResultsList
+          results={results}
+          style={styles.listStyle}
+          scrollDirection={true}
+        />
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <TouchableOpacity
         style={styles.ckdInfoContainerStyle}
-        onPress={() => navigation.navigate("PatientHome")} 
+        onPress={handleInfoPanePress}
       >
         <Text style={styles.underlineStyle}>
           What Is Chronic Kidney Disease?
