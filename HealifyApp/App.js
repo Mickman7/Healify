@@ -90,8 +90,11 @@ function CalculatorStack() {
 
 function ClinicianHomeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ClinicianHome" component={ClinicianHome} />
+      <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
+      <Stack.Screen name="FileScreen" component={FilesScreen} /> // Ensure FilesScreen is part of the stack
+      <Stack.Screen name="PatientResultList" component={PatientResultList} />
     </Stack.Navigator>
   );
 }
@@ -132,9 +135,7 @@ export default function App() {
     <UserTypeContext.Provider value={{ userType, setUserType }}>
       <NavigationContainer>
         <StatusBar style="auto" />
-        <Stack.Navigator
-                initialRouteName="UserTypeScreen"     screenOptions={{ headerShown: false }}
-        >
+        <Stack.Navigator initialRouteName="UserTypeScreen" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
           <Stack.Screen
             name="AuthenticationScreen"
@@ -152,6 +153,7 @@ export default function App() {
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
           <Stack.Screen name="PatientResultList" component={PatientResultList} />
           <Stack.Screen name="PatientHomeStack" component={PatientHomeStack} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>

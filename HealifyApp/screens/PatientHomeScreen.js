@@ -46,7 +46,7 @@ const PatientHomeScreen = ({navigation}) => {
       <Header headerText={"Home"} />
       <View style={styles.historyContainerStyle}>
         <Text style={styles.titleStyle}>History</Text>
-        <ResultsList results={results} style={styles.listStyle} />
+        <ResultsList results={results} style={styles.listStyle} scrollDirection={true}/>
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <TouchableOpacity

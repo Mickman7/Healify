@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { format } from "date-fns";
 
-const ResultsItem = ({ result }) => {
+const ResultsItem = ({ result, containerStyle }) => {
   //Initialisations
   const date = result.date.toDate();
   const formattedDate = format(date, "EEEE, MMMM d, h:mma");
@@ -34,7 +34,7 @@ const ResultsItem = ({ result }) => {
 
   //View
   return (
-    <View style={styles.resultBackground}>
+    <View style={[styles.resultBackground, containerStyle]}>
       <Text style={styles.formattedTextStyle}>{formattedDate}</Text>
       <Text
         style={[

@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React, { useState, useN } from 'react'
+import React, { useState } from 'react'
 import UploadCSV from '../components/UploadCSV'
 import { Ionicons } from "@expo/vector-icons";
 import Header from '../layout/Header';
 import Button from '../components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 
-const ClinicianHome = ({navigation}) => {
-    // const navigation = useNavigation();
+const ClinicianHome = () => {
+    const navigation = useNavigation();
 
     const [totalPatients, setTotalPatients] = useState('0');
     const [value, setValue] = useState(null);
@@ -96,7 +97,7 @@ const ClinicianHome = ({navigation}) => {
       </View>
 
       <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row', marginTop: 50}}>
-        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen', {})}>
+        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen')}>
             <Ionicons name='folder-open' size={30} color='white'/>
         </TouchableOpacity>
         <TextInput 
