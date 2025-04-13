@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Screen from "../layout/Screen";
@@ -6,7 +6,7 @@ import { FIREBASE_AUTH, FIREBASE_DB } from "../FirebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import ResultsList from "../components/ResultsList";
 
-const PatientHomeScreen = () => {
+const PatientHomeScreen = ({navigation}) => {
   //Initialisations
   const userID = FIREBASE_AUTH.currentUser.uid;
 
@@ -32,7 +32,7 @@ const PatientHomeScreen = () => {
       }
     }
     getPatientResults();
-  }, []);
+  }, [results]);
 
   if (!results) return;
   //View
@@ -44,7 +44,7 @@ const PatientHomeScreen = () => {
         <ResultsList results={results} style={styles.listStyle} />
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
-      <View style={styles.ckdInfoContainerStyle}>
+      <TouchableOpacity style={styles.ckdInfoContainerStyle} onPress={() => navigation.navigate('PatientHome')}>
         <Text style={styles.underlineStyle}>
           What Is Chronic Kidney Disease?
         </Text>
@@ -54,7 +54,7 @@ const PatientHomeScreen = () => {
           kidney disease are diabetes, high blood pressure, heart disease, and a
           family history of kidney failure.
         </Text>
-      </View>
+      </TouchableOpacity>
     </Screen>
   );
 };

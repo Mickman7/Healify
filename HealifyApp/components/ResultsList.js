@@ -9,9 +9,9 @@ const ResultsList = ({ results }) => {
       showsHorizontalScrollIndicator={false}
       style={styles.containerStyle}
     >
-      {results.map((result) => {
+      { results ? results.map((result) => {
         return <ResultsItem key={result.id} result={result} />;
-      })}
+      }) : "No current readings"}
     </ScrollView>
   );
 };

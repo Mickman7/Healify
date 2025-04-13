@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
-import { collection, addDoc, serverTimestamp} from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, updateDoc} from 'firebase/firestore';
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../FirebaseConfig';
 
 import Form from '../../components/Form';
@@ -15,9 +15,9 @@ const PatientHostoryScreen = ({navigation, route}) => {
     const {fullName, dob, sex, ethnicity, country, street, addressLineTwo, city, postcode} = route.params;
 
 
-    const handlesubmit = async() => {
-        try{
-            await addDoc(collection(FIREBASE_DB, 'patients'), {
+    const handleSubmit = async () => {
+        try {
+            const patientData = {
                 uid: userId, 
                 fullName: fullName,
                 dob: dob,
@@ -33,17 +33,25 @@ const PatientHostoryScreen = ({navigation, route}) => {
                 currentDocName: currentDocName,
                 currentDocEmail: currentDocEmail,
                 timestamp: serverTimestamp()
-                
-              });
-
-              console.log('User details submitted successfully!');
-              navigation.navigate('Home')
-        }catch(err) {
-            console.error("Error submitting user details:", err.message)
+            };
+    
+            // Add to patients collection
+            await addDoc(collection(FIREBASE_DB, 'patients'), patientData);
+            
+            // Add to user's details subcollection (auto-generated ID)
+            await addDoc(
+                collection(FIREBASE_DB, 'users', userId, 'details'), 
+                patientData
+            );
+    
+            console.log('User details submitted successfully!');
+            navigation.navigate('Home');
+            
+        } catch (err) {
+            console.error("Error submitting user details:", err);
+            // Consider adding user feedback here (e.g., Alert or Toast)
         }
-        
-
-    }
+    };
 
   return (
     <View style={styles.formContainer}>
@@ -84,7 +92,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             style={{width: 350, height: 50, borderColor: 'grey', marginTop: 5, marginBottom: 15, borderWidth: 1}}
         />
       
-      <TouchableOpacity onPress={handlesubmit} style={styles.button}>
+      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </View>

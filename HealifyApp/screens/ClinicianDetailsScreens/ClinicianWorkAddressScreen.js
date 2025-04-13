@@ -17,30 +17,32 @@ const ClinicianWorkAddressScreen = ({navigation, route}) => {
 
   const handlesubmit = async() => {
     try{
-        await addDoc(collection(FIREBASE_DB, 'clinicians'), {
-            uid: userId, 
-            fullName: fullName,
-            dob: dob,
-            sex: sex,
-            bio: bio,
-            licenseNum: licenseNum,
-            issueAuth: issueAuth,
-            expiryDate: expiryDate,
-            institution: institution,
-            additionalCert: additionalCert,
-            specialisation: specialisation,
-            yearsExperience: yrsExperience,
-            affiliations: affiliation,
-            country: country,
-            street: street,
-            addressLineTwo: addressLineTwo,
-            city: city,
-            postcode: postcode,
-            timestamp: serverTimestamp()
-            
-          });
-          console.log('User details submitted successfully!');
-          navigation.navigate('Home')
+      const clinicianData = {
+        uid: userId, 
+        fullName: fullName,
+        dob: dob,
+        sex: sex,
+        bio: bio,
+        licenseNum: licenseNum,
+        issueAuth: issueAuth,
+        expiryDate: expiryDate,
+        institution: institution,
+        additionalCert: additionalCert,
+        specialisation: specialisation,
+        yearsExperience: yrsExperience,
+        affiliations: affiliation,
+        country: country,
+        street: street,
+        addressLineTwo: addressLineTwo,
+        city: city,
+        postcode: postcode,
+        timestamp: serverTimestamp()
+      }
+        await addDoc(collection(FIREBASE_DB, 'clinicians'), clinicianData);
+        await addDoc(collection(FIREBASE_DB, 'users', userId, 'details'), clinicianData);
+
+        console.log('User details submitted successfully!');
+        navigation.navigate('Home')
 
     }catch(err) {
         Alert.alert("Error submitting user details:", err.message)

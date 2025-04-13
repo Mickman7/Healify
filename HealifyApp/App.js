@@ -142,6 +142,7 @@ export default function App() {
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
           <Stack.Screen name="PatientResultList" component={PatientResultList} />
+          <Stack.Screen name="PatientHome" component={PatientHome} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>
