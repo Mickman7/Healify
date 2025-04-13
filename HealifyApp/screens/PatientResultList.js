@@ -5,12 +5,10 @@ import Header from '../layout/Header'
 import { Ionicons } from "@expo/vector-icons";
 import { collection, getDoc, getDocs } from 'firebase/firestore';
 import { FIREBASE_DB, FIREBASE_AUTH } from '../FirebaseConfig';
-import ResultsList from '../components/ResultsList';
 
 const PatientResultList = ({navigation}) => {
 
     const userId = FIREBASE_AUTH.currentUser.uid;
-    // const userId = 'bG9raUVNhuY72kF5fvkbyVKptRI2'
 
     const [results, setResults] = useState([]);
     const [user, setUser] = useState([]);
@@ -26,7 +24,6 @@ const PatientResultList = ({navigation}) => {
             ...doc.data(),
           }));
           setResults(resultsList);
-          console.log("Fetched Results:", resultsList);
         }catch(err){
           console.error("Error fetching results:", err)
         }
@@ -46,8 +43,6 @@ const PatientResultList = ({navigation}) => {
               ...doc.data(),
             }));
             setUser(userList);
-            console.log("Users:", userList)
-            console.log("Fetched user:", user[0]?.uid); 
           }catch(err){
             console.error("Error fetching results:", err)
           }
@@ -74,28 +69,33 @@ const PatientResultList = ({navigation}) => {
 
       <ScrollView style={{height: '75%'}}>
 
-        {results.map((result) => (
-          <PatientResultsCard
-            key={result.id}
-            patientId={"N/A"}
-            age={
-              user[0]?.dob
-                ? (() => {
-                    const [day, month, year] = user[0].dob.split('/').map(Number);
-                    const dob = new Date(year, month - 1, day);
-                    const today = new Date();
-                    return today.getFullYear() - dob.getFullYear() - 
-                      (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate()) ? 1 : 0);
-                  })()
-                : "N/A"
-            } 
-            sex={user[0]?.sex || "N/A"}
-            ethnicity={user[0]?.ethnicity || "N/A"}
-            creatinineLvl={`${result.creatineLevel} µmol/L`}
-            egfr={`${result.eGFRLevel} ml/min/1.73m²`}
-            stage={determineStage(result.eGFRLevel)}
-          />
-        ))}
+        {results.map((result) => {
+          const { stage, color } = determineStage(result.eGFRLevel); // Get stage and color
+
+          return (
+            <PatientResultsCard
+              key={result.id}
+              patientId={"N/A"}
+              age={
+                user[0]?.dob
+                  ? (() => {
+                      const [day, month, year] = user[0].dob.split('/').map(Number);
+                      const dob = new Date(year, month - 1, day);
+                      const today = new Date();
+                      return today.getFullYear() - dob.getFullYear() - 
+                        (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate()) ? 1 : 0);
+                    })()
+                  : "N/A"
+              } 
+              sex={user[0]?.sex || "N/A"}
+              ethnicity={user[0]?.ethnicity || "N/A"}
+              creatinineLvl={`${result.creatineLevel} µmol/L`}
+              egfr={`${result.eGFRLevel} ml/min/1.73m²`}
+              stage={stage} // Display the stage
+              style={[styles.defaultCardStyle, color]} // Apply the color
+            />
+          );
+        })}
       </ScrollView>
 
       <View style={{ width: '100%', paddingHorizontal: 35, flexDirection: 'row', bottom: 0}}>
@@ -115,12 +115,21 @@ const PatientResultList = ({navigation}) => {
 
 // Helper function to determine the stage based on eGFR level
 const determineStage = (eGFRLevel) => {
-  if (eGFRLevel >= 90) return "Stage 1";
-  if (eGFRLevel >= 60) return "Stage 2";
-  if (eGFRLevel >= 45) return "Stage 3a";
-  if (eGFRLevel >= 30) return "Stage 3b";
-  if (eGFRLevel >= 15) return "Stage 4";
-  return "Stage 5";
+  if (eGFRLevel >= 90) return { stage: "Stage 1", color: styles.greenContainerStyle };
+  if (eGFRLevel >= 60) return { stage: "Stage 2", color: styles.yellowContainerStyle };
+  if (eGFRLevel >= 45) return { stage: "Stage 3a", color: styles.darkerYellowContainerStyle };
+  if (eGFRLevel >= 30) return { stage: "Stage 3b", color: styles.darkerYellowContainerStyle };
+  if (eGFRLevel >= 15) return { stage: "Stage 4", color: styles.organgeContainerStyle };
+  return { stage: "Stage 5", color: styles.redContainerStyle };
+};
+
+const getStageColour = (stage) => {
+  if (stage == "1") return styles.greenContainerStyle;
+  if (stage == "2") return styles.yellowContainerStyle;
+  if (stage == "3a" || stage == "3b")
+    return styles.darkerYellowContainerStyle;
+  if (stage == "4") return styles.organgeContainerStyle;
+  if (stage == "5") return styles.redContainerStyle;
 };
 
 export default PatientResultList
@@ -145,5 +154,20 @@ const styles = StyleSheet.create({
       listStyle: {
         width: 375,
         height: 200
-      }
+      },
+      greenContainerStyle: {
+        backgroundColor: "#4C9A29",
+      },
+      yellowContainerStyle: {
+        backgroundColor: "#FCC333",
+      },
+      darkerYellowContainerStyle: {
+        backgroundColor: "#FDBD20",
+      },
+      organgeContainerStyle: {
+        backgroundColor: "#E57C02",
+      },
+      redContainerStyle: {
+        backgroundColor: "#D94214",
+      },
 })

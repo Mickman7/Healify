@@ -35,7 +35,7 @@ const ClinicialInfoScreen = ({navigation, route}) => {
         <Form.InputSelect
             label='Sex'
             options={sex}
-            onValueChange={(value) => setSelectedValueSex(value)}
+            onValueChange={(value) => setSelectedValueSex(value)} // Set only the selected value
             style={{width: 350, margin: 15}}
             textStyle={{fontWeight: 'bold'}}
         />
