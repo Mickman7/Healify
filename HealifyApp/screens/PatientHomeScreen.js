@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, navigate } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Screen from "../layout/Screen";
@@ -38,6 +38,8 @@ const PatientHomeScreen = ({navigation}) => {
   }, [results]);
 
   if (!results) return;
+
+
   //View
   return (
     <Screen>
@@ -47,11 +49,14 @@ const PatientHomeScreen = ({navigation}) => {
         <ResultsList results={results} style={styles.listStyle} />
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
-      <TouchableOpacity style={styles.ckdInfoContainerStyle} onPress={() => navigation.navigate('PatientHome')}>
+      <TouchableOpacity
+        style={styles.ckdInfoContainerStyle}
+        onPress={() => navigation.navigate("PatientHome")} 
+      >
         <Text style={styles.underlineStyle}>
           What Is Chronic Kidney Disease?
         </Text>
-        <Text styles={styles.ckdInfoStyle}>
+        <Text style={styles.ckdInfoStyle}>
           Chronic kidney disease (CKD) means your kidneys are damaged and can’t
           filter blood the way they should. The main risk factors for developing
           kidney disease are diabetes, high blood pressure, heart disease, and a

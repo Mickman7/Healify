@@ -28,6 +28,7 @@ import ClinicianHome from "./screens/ClinicianHome";
 import UploadCsvGuideScreen from "./screens/UploadCsvGuideScreen";
 import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
 import PatientResultList from "./screens/PatientResultList";
+import PatientHomeScreen from "./screens/PatientHomeScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,16 +88,25 @@ function CalculatorStack() {
   );
 }
 
-function ClinicianHomeStack(){
-  return(
+function ClinicianHomeStack() {
+  return (
     <Stack.Navigator>
-      
-
+      <Stack.Screen name="ClinicianHome" component={ClinicianHome} />
     </Stack.Navigator>
   );
 }
 
-
+function PatientHomeStack(){
+  return(
+    <Stack.Navigator
+      initialRouteName="PatientHomeScreen"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="PatientHome" component={PatientHome} />        
+      <Stack.Screen name="PatientHomeScreen" component={PatientHomeScreen} /> 
+    </Stack.Navigator>
+  );
+}
 
 function MyTabs({ navigation }) {
   return (
@@ -123,8 +133,7 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Stack.Navigator
-          initialRouteName="UserTypeScreen"
-          screenOptions={{ headerShown: false }}
+                initialRouteName="UserTypeScreen"     screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
           <Stack.Screen
@@ -142,7 +151,7 @@ export default function App() {
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
           <Stack.Screen name="PatientResultList" component={PatientResultList} />
-          <Stack.Screen name="PatientHome" component={PatientHome} />
+          <Stack.Screen name="PatientHomeStack" component={PatientHomeStack} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>

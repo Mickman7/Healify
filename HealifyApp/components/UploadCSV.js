@@ -5,64 +5,82 @@ import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from 'expo-file-system';
 import Papa from 'papaparse';
 import { Ionicons } from "@expo/vector-icons";
+import * as XLSX from 'xlsx'; // Import XLSX for parsing Excel files
 
+const UploadCSV = ({ data, setData }) => {
+    const [fileName, setFileName] = useState(""); // State to store the file name
 
-
-const UploadCSV = () => {
-    const [data, setData] = useState([]);
-
-    const selectDocument = async() => {
+    const selectDocument = async () => {
         try {
             const result = await DocumentPicker.getDocumentAsync({
-              type: 'text/csv', 
+                type: ['text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'], // Accept CSV and XLSX
             });
             console.log('DocumentPicker result:', result);
-      
+
             if (!result.canceled && result.assets && result.assets.length > 0) {
-              const fileUri = result.assets[0].uri;
-      
-              // On Android, the URI might be a `content://` URI, which needs to be copied to a local file
-              if (Platform.OS === 'android') {
-                const fileUriParts = result.uri.split('/');
-                const fileName = fileUriParts[fileUriParts.length - 1];
-                const newUri = `${FileSystem.documentDirectory}${fileName}`;
-      
-                // Copy the file to a local directory
-                await FileSystem.copyAsync({
-                  from: result.uri,
-                  to: newUri,
+                const fileUri = result.assets[0].uri;
+                setFileName(result.assets[0].name); // Set the file name
+
+                // On Android, handle content:// URIs
+                if (Platform.OS === 'android') {
+                    const fileUriParts = result.uri.split('/');
+                    const fileName = fileUriParts[fileUriParts.length - 1];
+                    const newUri = `${FileSystem.documentDirectory}${fileName}`;
+
+                    await FileSystem.copyAsync({
+                        from: result.uri,
+                        to: newUri,
+                    });
+
+                    fileUri = newUri;
+                }
+
+                // Read the file content
+                const fileContent = await FileSystem.readAsStringAsync(fileUri, {
+                    encoding: FileSystem.EncodingType.Base64, // Read as Base64 for XLSX
                 });
-      
-                fileUri = newUri;
-              }
-      
-              // Read the file content using expo-file-system
-              const fileContent = await FileSystem.readAsStringAsync(fileUri);
-      
-              // Parse the CSV data
-              Papa.parse(fileContent, {
-                header: true, // Assumes the first row is the header
-                dynamicTyping: true, // Automatically convert numeric values
-                complete: (results) => {
-                  setData(results.data); // Set the parsed data to state
-                  console.log(results.data)
-                },
-              });
-            }else{
-                Alert.alert('error')
+
+                if (result.assets[0].mimeType === 'text/csv') {
+                    // Parse CSV data
+                    Papa.parse(fileContent, {
+                        header: true,
+                        dynamicTyping: true,
+                        complete: (results) => {
+                            const filteredData = results.data.filter(row =>
+                                Object.values(row).some(value => value !== null && value !== "")
+                            );
+                            setData(filteredData);
+                        },
+                    });
+                } else if (result.assets[0].mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    // Parse XLSX data
+                    const workbook = XLSX.read(fileContent, { type: 'base64' });
+                    const sheetName = workbook.SheetNames[0]; // Get the first sheet
+                    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                    setData(sheetData); // Set parsed XLSX data
+                }
+            } else {
+                Alert.alert('Error', 'No file selected or unsupported file type.');
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error picking or parsing the document:', error);
-          }
-       
+        }
     }
 
   return (
     <View>
       <TouchableOpacity onPress={selectDocument} style={styles.uploadBtn}>
-        <View style={styles.addBtn}>
-            <Ionicons name='add' size={30} color='white' style={{fontWeight: 'bold'}}/>
-        </View>
+            {data.length === 0 ? (
+              <View style={styles.addBtn}>
+                <Ionicons name='add' size={30} color='white' style={{ fontWeight: 'bold' }} />
+            </View>
+            ) : (
+              <View>
+                <Text style={{fontSize: 20}}>File Uploaded:</Text>
+                <Text style={styles.fileNameText}>{fileName}</Text>
+              </View>
+            )}
+  
       </TouchableOpacity>
     </View>
   )
@@ -95,5 +113,17 @@ const styles = StyleSheet.create({
         borderRadius: '50%',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    resultText: {
+        marginTop: 10,
+        fontSize: 14,
+        color: 'black',
+        textAlign: 'center',
+    },
+    fileNameText: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 })
