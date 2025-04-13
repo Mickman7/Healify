@@ -1,16 +1,56 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState, useN } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
+import React, { useState } from 'react'
 import UploadCSV from '../components/UploadCSV'
 import { Ionicons } from "@expo/vector-icons";
 import Header from '../layout/Header';
 import Button from '../components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 
-const ClinicianHome = ({navigation}) => {
-    // const navigation = useNavigation();
+const ClinicianHome = () => {
+    const navigation = useNavigation();
 
-    const [totalPatients, setTotalPatients] = useState('36');
+    const [totalPatients, setTotalPatients] = useState('0');
     const [value, setValue] = useState(null);
+    const [uploadData, setUploadData] = useState([]); // State to hold uploaded data
+
+    const clearData = () => {
+        setUploadData([]); // Clear the uploaded data
+        setTotalPatients('0'); // Optionally reset total patients
+    };
+
+    const handleFileCalculation = () => {
+        if (uploadData.length === 0) {
+            Alert.alert("No Data", "Please upload a file before calculating.");
+            return;
+        }
+
+        const results = uploadData.map((row) => {
+            const creatinineLevel = row["Creatinine"]; // Adjusted key for Creatinine
+            const age = row["Age"]; // Adjusted key for Age
+            const sex = row["Gender"] === "Female"; // Adjusted key for Gender
+            const ethnicity = row["Ethnicity"] === "Non-black"; // Adjusted key for Ethnicity
+
+            if (!creatinineLevel || !age) {
+                return { error: "Missing required fields in row" };
+            }
+
+            const creatValue = creatinineLevel ** -1.154; // Assuming Creatinine is in mg/dL
+            const ageValue = age ** -0.203;
+            const sexValue = sex ? 0.742 : 1;
+            const ethnicityValue = ethnicity ? 1 : 1.21;
+
+            const result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
+            return { result: Math.ceil(result), row };
+        });
+
+        const validResults = results.filter((res) => !res.error); // Filter out rows with errors
+        setTotalPatients(validResults.length.toString()); // Update totalPatients with the count of valid rows
+
+        console.log("Calculated Results:", results);
+        Alert.alert("Calculation Complete", `Processed ${validResults.length} patients.`);
+    };
+
   return (
     <View style={{alignItems: 'center'}}>
       <Header
@@ -30,22 +70,20 @@ const ClinicianHome = ({navigation}) => {
                 <Ionicons name='information-circle-outline' size={30} color='#001C45'/>
             </TouchableOpacity>
         </View>
-        <UploadCSV/>
+        <UploadCSV data={uploadData} setData={setUploadData} />
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 50, marginBottom: 10}}>
         <Button
             label='Clear'
             buttonStyle={styles.clearBtn}
             labelStyle={styles.clearBtnLabel}
-            onClick={() => console.log('Button Pressed')}
-
+            onClick={clearData} 
         />
         <Button
             label='Calculate'
             buttonStyle={styles.calculateBtn}
             labelStyle={styles.calculateBtnLabel}
-            onClick={() => console.log('Button Pressed')}
-
+            onClick={handleFileCalculation}
         />
       </View>
 
@@ -59,7 +97,7 @@ const ClinicianHome = ({navigation}) => {
       </View>
 
       <View style={{width: '100%', paddingHorizontal: 35, flexDirection: 'row', marginTop: 50}}>
-        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen', {})}>
+        <TouchableOpacity style={styles.fileBtn} onPress={() => navigation.navigate('FileScreen')}>
             <Ionicons name='folder-open' size={30} color='white'/>
         </TouchableOpacity>
         <TextInput 

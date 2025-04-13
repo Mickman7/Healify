@@ -2,7 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Header from "../layout/Header";
 
-const PatientHome = () => {
+const PatientHome = ({ navigation }) => { // Add navigation prop
   return (
     <View>
       <Header
@@ -15,7 +15,12 @@ const PatientHome = () => {
         }
       />
       <ScrollView style={styles.scrollableContainerStyle}>
-        <Text style={styles.titleStyling}>Chronic Kidney Disease (CKD)</Text>
+        <Text
+          style={styles.titleStyling}
+          onPress={() => navigation.navigate("PatientHomeScreen")} 
+        >
+          Chronic Kidney Disease (CKD)
+        </Text>
         <Text style={styles.underlineSubtitleStyle}>
           What is Chronic Kidney Disease?
         </Text>

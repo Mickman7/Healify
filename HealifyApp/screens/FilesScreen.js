@@ -46,7 +46,12 @@ const FilesScreen = ({navigation}) => {
         </View>
         <ScrollView style={styles.scrollContainer}>
             {files.map((file, index) => (
-                <FileItem  key={index} filename={file.filename} timeOpened={file.openedAt} onClick={() => console.log('Opened', file.filename)}/>
+                <FileItem  
+                    key={index} 
+                    filename={file.filename} 
+                    timeOpened={file.openedAt} 
+                    onClick={() => navigation.navigate('PatientResultList')} // Updated to use navigation
+                />
             ))}
         </ScrollView>
 

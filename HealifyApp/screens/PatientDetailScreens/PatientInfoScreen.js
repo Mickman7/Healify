@@ -40,7 +40,7 @@ const PatientInfoScreen = ({navigation}) => {
         <Form.InputSelect
             label='Sex'
             options={sex}
-            onValueChange={(value) => setSelectedValueSex(value)}
+            onValueChange={(value) => setSelectedValueSex(value)} // Set only the selected value
             style={{width: 350, margin: 15}}
             textStyle={{fontWeight: 'bold'}}
         />
@@ -48,7 +48,7 @@ const PatientInfoScreen = ({navigation}) => {
         <Form.InputSelect
             label='Ethnicity'
             options={ethnicity}
-            onValueChange={(value) => setSelectedValueEthnicity()}
+            onValueChange={(value) => setSelectedValueEthnicity(value)} // Fix missing value update
             style={{width: 350,}}
             textStyle={{fontWeight: 'bold'}}
         />

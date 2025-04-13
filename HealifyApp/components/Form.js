@@ -53,7 +53,7 @@ const InputSelect = ({ label, options, onValueChange, style, textStyle }) => {
       <Text style={[styles.label, textStyle]}>{label}</Text>
       <SelectList
         data={options.map((option) => ({ key: option, value: option }))}
-        setSelected={onValueChange}
+        setSelected={(value) => onValueChange(value)} // Ensure only the selected value is passed
         placeholder="Select an option"
         style={[styles.selectStyles]}
       />

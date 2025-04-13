@@ -28,6 +28,7 @@ import ClinicianHome from "./screens/ClinicianHome";
 import UploadCsvGuideScreen from "./screens/UploadCsvGuideScreen";
 import LearnMoreScreen from "./screens/CalculatorScreens/LearnMoreScreen";
 import PatientResultList from "./screens/PatientResultList";
+import PatientHomeScreen from "./screens/PatientHomeScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,16 +88,28 @@ function CalculatorStack() {
   );
 }
 
-function ClinicianHomeStack(){
-  return(
-    <Stack.Navigator>
-      
-
+function ClinicianHomeStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ClinicianHome" component={ClinicianHome} />
+      <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
+      <Stack.Screen name="FileScreen" component={FilesScreen} /> // Ensure FilesScreen is part of the stack
+      <Stack.Screen name="PatientResultList" component={PatientResultList} />
     </Stack.Navigator>
   );
 }
 
-
+function PatientHomeStack(){
+  return(
+    <Stack.Navigator
+      initialRouteName="PatientHomeScreen"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="PatientHome" component={PatientHome} />        
+      <Stack.Screen name="PatientHomeScreen" component={PatientHomeScreen} /> 
+    </Stack.Navigator>
+  );
+}
 
 function MyTabs({ navigation }) {
   return (
@@ -122,10 +135,7 @@ export default function App() {
     <UserTypeContext.Provider value={{ userType, setUserType }}>
       <NavigationContainer>
         <StatusBar style="auto" />
-        <Stack.Navigator
-          initialRouteName="UserTypeScreen"
-          screenOptions={{ headerShown: false }}
-        >
+        <Stack.Navigator initialRouteName="UserTypeScreen" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
           <Stack.Screen
             name="AuthenticationScreen"
@@ -142,7 +152,8 @@ export default function App() {
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
           <Stack.Screen name="PatientResultList" component={PatientResultList} />
-          <Stack.Screen name="PatientHome" component={PatientHome} />
+          <Stack.Screen name="PatientHomeStack" component={PatientHomeStack} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>
