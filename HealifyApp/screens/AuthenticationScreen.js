@@ -62,7 +62,7 @@ const AuthenticationScreen = ({ navigation }) => {
           const storedUserType = userData.userType;
           if (userType === storedUserType) {
             console.log("User signed in successfully!");
-            navigation.navigate("PatientDetails");
+            navigation.navigate("BottomTabs");
           } else {
             Alert.alert(
               "Error",
@@ -87,10 +87,13 @@ const AuthenticationScreen = ({ navigation }) => {
           email: user.email,
           userType: userType,
         });
+        const navigationDestination =
+          userType === "Clinician" ? "ClinicianDetails" : "PatientDetails";
+
         console.log("User details submitted successfully!");
         navigation.navigate("ClinicianDetails");
 
-        console.log("User created successfully!");
+        console.log(navigationDestination);
       }
     } catch (error) {
       console.error("Authentication error:", error.message);
