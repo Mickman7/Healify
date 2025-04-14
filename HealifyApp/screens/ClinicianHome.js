@@ -12,11 +12,11 @@ const ClinicianHome = () => {
 
     const [totalPatients, setTotalPatients] = useState('0');
     const [value, setValue] = useState(null);
-    const [uploadData, setUploadData] = useState([]); // State to hold uploaded data
+    const [uploadData, setUploadData] = useState([]);
 
     const clearData = () => {
-        setUploadData([]); // Clear the uploaded data
-        setTotalPatients('0'); // Optionally reset total patients
+        setUploadData([]);
+        setTotalPatients('0');
     };
 
     const handleFileCalculation = () => {
@@ -25,30 +25,40 @@ const ClinicianHome = () => {
             return;
         }
 
-        const results = uploadData.map((row) => {
-            const creatinineLevel = row["Creatinine"]; // Adjusted key for Creatinine
-            const age = row["Age"]; // Adjusted key for Age
-            const sex = row["Gender"] === "Female"; // Adjusted key for Gender
-            const ethnicity = row["Ethnicity"] === "Non-black"; // Adjusted key for Ethnicity
+        const results = uploadData.map((row, index) => {
+            const creatinineLevel = parseFloat(row["Creatinine"]);
+            const age = parseInt(row["Age"], 10);
+            const sex = row["Gender"]?.toLowerCase() === "female";
+            const ethnicity = row["Ethnicity"]?.toLowerCase() === "non-black";
+            const units = row["Units"]?.toLowerCase() || "mg/dl";
 
-            if (!creatinineLevel || !age) {
-                return { error: "Missing required fields in row" };
+            if (!creatinineLevel || !age || sex === undefined || ethnicity === undefined) {
+                return { error: "Missing or invalid fields in row", row };
             }
 
-            const creatValue = creatinineLevel ** -1.154; // Assuming Creatinine is in mg/dL
+            const creatValue =
+                units === "µmol/l" || creatinineLevel > 20
+                    ? (creatinineLevel / 88.4) ** -1.154
+                    : creatinineLevel ** -1.154;
             const ageValue = age ** -0.203;
             const sexValue = sex ? 0.742 : 1;
             const ethnicityValue = ethnicity ? 1 : 1.21;
 
-            const result = 186 * creatValue * ageValue * sexValue * ethnicityValue;
-            return { result: Math.ceil(result), row };
+            const eGFRResult = Math.ceil(
+                186 * creatValue * ageValue * sexValue * ethnicityValue
+            );
+
+            return { eGFRResult, ...row };
         });
 
-        const validResults = results.filter((res) => !res.error); // Filter out rows with errors
-        setTotalPatients(validResults.length.toString()); // Update totalPatients with the count of valid rows
+        const validResults = results.filter((res) => !res.error);
+        setTotalPatients(validResults.length.toString());
 
-        console.log("Calculated Results:", results);
-        Alert.alert("Calculation Complete", `Processed ${validResults.length} patients.`);
+        if (validResults.length > 0) {
+            navigation.navigate("PatientResultList", { results: validResults });
+        } else {
+            Alert.alert("Calculation Failed", "No valid rows found in the uploaded data.");
+        }
     };
 
   return (
@@ -70,7 +80,7 @@ const ClinicianHome = () => {
                 <Ionicons name='information-circle-outline' size={30} color='#001C45'/>
             </TouchableOpacity>
         </View>
-        <UploadCSV data={uploadData} setData={setUploadData} />
+        <UploadCSV data={uploadData} setData={setUploadData} setTotalPatients={setTotalPatients} />
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 50, marginBottom: 10}}>
         <Button

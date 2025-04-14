@@ -7,7 +7,7 @@ import { collection, getDocs } from "firebase/firestore";
 import ResultsList from "../components/ResultsList";
 import { useNavigation } from "@react-navigation/native";
 
-const PatientHomeScreen = ({}) => {
+const PatientHomeScreen = () => {
   //Initialisations
   const userID = FIREBASE_AUTH.currentUser.uid;
   const navigation = useNavigation();
