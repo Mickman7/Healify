@@ -62,7 +62,7 @@ const AuthenticationScreen = ({ navigation }) => {
           const storedUserType = userData.userType;
           if (userType === storedUserType) {
             console.log("User signed in successfully!");
-            navigation.navigate("BottomTabs");
+            navigation.navigate("PatientDetails");
           } else {
             Alert.alert(
               "Error",
@@ -88,7 +88,7 @@ const AuthenticationScreen = ({ navigation }) => {
           userType: userType,
         });
         console.log("User details submitted successfully!");
-        navigation.navigate("BottomTabs");
+        navigation.navigate("ClinicianDetails");
 
         console.log("User created successfully!");
       }
