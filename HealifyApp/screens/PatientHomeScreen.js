@@ -39,8 +39,12 @@ const PatientHomeScreen = () => {
     getPatientResults();
   }, [results]);
 
-  if (!results) return;
+  //Handlers
+  const handleInfoPanePress = () => {
+    navigation.navigate("PatientHomeStack", { screen: "PatientHome" });
+  };
 
+  if (!results) return;
 
   //View
   return (
@@ -48,12 +52,16 @@ const PatientHomeScreen = () => {
       <Header headerText={"Home"} />
       <View style={styles.historyContainerStyle}>
         <Text style={styles.titleStyle}>History</Text>
-        <ResultsList results={results} style={styles.listStyle} scrollDirection={true}/>
+        <ResultsList
+          results={results}
+          style={styles.listStyle}
+          scrollDirection={true}
+        />
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <TouchableOpacity
         style={styles.ckdInfoContainerStyle}
-        onPress={() => navigation.navigate("PatientHome")} 
+        onPress={handleInfoPanePress}
       >
         <Text style={styles.underlineStyle}>
           What Is Chronic Kidney Disease?

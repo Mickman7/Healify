@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
 import NavigationBar from "./components/NavigationBar";
 
@@ -93,7 +92,8 @@ function ClinicianHomeStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ClinicianHome" component={ClinicianHome} />
       <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
-      <Stack.Screen name="FileScreen" component={FilesScreen} /> // Ensure FilesScreen is part of the stack
+      <Stack.Screen name="FileScreen" component={FilesScreen} /> // Ensure
+      FilesScreen is part of the stack
       <Stack.Screen name="PatientResultList" component={PatientResultList} />
     </Stack.Navigator>
   );
@@ -111,7 +111,7 @@ function PatientHomeStack() {
   );
 }
 
-function MyTabs({ navigation }) {
+function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
@@ -135,7 +135,10 @@ export default function App() {
     <UserTypeContext.Provider value={{ userType, setUserType }}>
       <NavigationContainer>
         <StatusBar style="auto" />
-        <Stack.Navigator initialRouteName="UserTypeScreen" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator
+          initialRouteName="UserTypeScreen"
+          screenOptions={{ headerShown: false }}
+        >
           <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
           <Stack.Screen
             name="AuthenticationScreen"
@@ -147,14 +150,23 @@ export default function App() {
             component={MyTabs}
           />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="UploadCsvGuide" component={UploadCsvGuideScreen} />
+          <Stack.Screen
+            name="UploadCsvGuide"
+            component={UploadCsvGuideScreen}
+          />
           <Stack.Screen name="FileScreen" component={FilesScreen} />
           <Stack.Screen name="PatientDetails" component={PatientDetailStack} />
-          <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
-          <Stack.Screen name="PatientResultList" component={PatientResultList} />
+          <Stack.Screen
+            name="ClinicianDetails"
+            component={ClinicianDetailStack}
+          />
+          <Stack.Screen
+            name="PatientResultList"
+            component={PatientResultList}
+          />
           <Stack.Screen name="PatientHomeStack" component={PatientHomeStack} />
           <Stack.Screen name="PatientHome" component={PatientHome} />
-          
+
         </Stack.Navigator>
       </NavigationContainer>
     </UserTypeContext.Provider>
