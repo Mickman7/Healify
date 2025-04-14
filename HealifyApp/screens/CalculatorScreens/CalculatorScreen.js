@@ -79,10 +79,9 @@ const CalculatorScreen = ({ navigation }) => {
         sex: sex, // Save sex directly from state
         ethnicity: ethnicity, // Save ethnicity directly from state
       });
-      console.log(age)
       console.log("User details submitted successfully");
     } catch (error) {
-      console.error(error);
+      throw new Error("Error adding eGFR result: " + error.message);
     }
   };
 

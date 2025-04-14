@@ -23,9 +23,7 @@ const AuthenticationScreen = ({navigation, route}) => {
     const { userType } = useContext(UserTypeContext);
 
 
-    
-
-
+  
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
           setUser(user);
@@ -36,7 +34,7 @@ const AuthenticationScreen = ({navigation, route}) => {
 
     const handleAuthentication = async () => {
       if (!email || !password) {
-          console.error("Email or password is empty.");
+          Alert.alert("Email or password is empty.");
           return;
         }
       if (!userType) {

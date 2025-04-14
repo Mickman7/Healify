@@ -46,7 +46,7 @@ const UploadCSV = ({ data, setData, setTotalPatients }) => {
                                 Object.values(row).some(value => value !== null && value !== "")
                             );
                             setData(filteredData);
-                            setTotalPatients(filteredData.length.toString()); // Set total patients
+                            setTotalPatients(filteredData.length.toString()); 
                         },
                     });
                 } else if (result.assets[0].mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {

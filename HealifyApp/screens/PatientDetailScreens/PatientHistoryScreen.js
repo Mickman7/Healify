@@ -35,10 +35,8 @@ const PatientHostoryScreen = ({navigation, route}) => {
                 timestamp: serverTimestamp()
             };
     
-            // Add to patients collection
             await addDoc(collection(FIREBASE_DB, 'patients'), patientData);
             
-            // Add to user's details subcollection (auto-generated ID)
             await addDoc(
                 collection(FIREBASE_DB, 'users', userId, 'details'), 
                 patientData
@@ -48,8 +46,7 @@ const PatientHostoryScreen = ({navigation, route}) => {
             navigation.navigate('Home');
             
         } catch (err) {
-            console.error("Error submitting user details:", err);
-            // Consider adding user feedback here (e.g., Alert or Toast)
+            throw new Error("Error submitting user details: " + err.message);
         }
     };
 

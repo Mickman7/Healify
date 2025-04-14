@@ -14,9 +14,8 @@ const ClinicianWorkAddressScreen = ({navigation, route}) => {
   const userId = FIREBASE_AUTH.currentUser.uid;
   const {fullName, dob, sex, bio, licenseNum, issueAuth, expiryDate, institution, additionalCert, specialisation, yrsExperience, affiliation} = route.params;
 
-
   const handlesubmit = async() => {
-    try{
+    try {
       const clinicianData = {
         uid: userId, 
         fullName: fullName,
@@ -37,22 +36,16 @@ const ClinicianWorkAddressScreen = ({navigation, route}) => {
         city: city,
         postcode: postcode,
         timestamp: serverTimestamp()
-      }
-        await addDoc(collection(FIREBASE_DB, 'clinicians'), clinicianData);
-        await addDoc(collection(FIREBASE_DB, 'users', userId, 'details'), clinicianData);
+      };
+      await addDoc(collection(FIREBASE_DB, 'clinicians'), clinicianData);
+      await addDoc(collection(FIREBASE_DB, 'users', userId, 'details'), clinicianData);
 
-        console.log('User details submitted successfully!');
-        navigation.navigate('Home')
-
-    }catch(err) {
-        Alert.alert("Error submitting user details:", err.message)
+      console.log('User details submitted successfully!');
+      navigation.navigate('Home');
+    } catch (err) {
+      throw new Error("Error submitting user details: " + err.message);
     }
-    
-
-}
-
-
-
+  };
 
   return (
     <View style={styles.formContainer}>
@@ -60,8 +53,6 @@ const ClinicianWorkAddressScreen = ({navigation, route}) => {
             <Text style={styles.title}>Work Address</Text>
             <Image source={require('../../assets/AppLogo.png')} style={{width: 75, height: 75}}/>
         </View>
-
-
 
         <Form.InputText
             label='Country/Location'
