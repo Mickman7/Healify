@@ -6,7 +6,7 @@ import Papa from 'papaparse';
 import { Ionicons } from "@expo/vector-icons";
 import * as XLSX from 'xlsx';
 
-const UploadCSV = ({ data, setData }) => {
+const UploadCSV = ({ data, setData, setTotalPatients }) => {
     const [fileName, setFileName] = useState("");
 
     const selectDocument = async () => {
@@ -46,6 +46,7 @@ const UploadCSV = ({ data, setData }) => {
                                 Object.values(row).some(value => value !== null && value !== "")
                             );
                             setData(filteredData);
+                            setTotalPatients(filteredData.length.toString()); // Set total patients
                         },
                     });
                 } else if (result.assets[0].mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
@@ -53,6 +54,7 @@ const UploadCSV = ({ data, setData }) => {
                     const sheetName = workbook.SheetNames[0];
                     const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
                     setData(sheetData);
+                    setTotalPatients(sheetData.length.toString()); // Set total patients
                 }
             } else {
                 Alert.alert('Error', 'No file selected or unsupported file type.');

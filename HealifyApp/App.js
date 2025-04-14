@@ -99,14 +99,14 @@ function ClinicianHomeStack() {
   );
 }
 
-function PatientHomeStack(){
-  return(
+function PatientHomeStack() {
+  return (
     <Stack.Navigator
       initialRouteName="PatientHomeScreen"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="PatientHome" component={PatientHome} />        
-      <Stack.Screen name="PatientHomeScreen" component={PatientHomeScreen} /> 
+      <Stack.Screen name="PatientHomeScreen" component={PatientHomeScreen} />
+      <Stack.Screen name="PatientHome" component={PatientHome} />
     </Stack.Navigator>
   );
 }
@@ -153,6 +153,7 @@ export default function App() {
           <Stack.Screen name="ClinicianDetails" component={ClinicianDetailStack} />
           <Stack.Screen name="PatientResultList" component={PatientResultList} />
           <Stack.Screen name="PatientHomeStack" component={PatientHomeStack} />
+          <Stack.Screen name="PatientHome" component={PatientHome} />
           
         </Stack.Navigator>
       </NavigationContainer>

@@ -74,8 +74,12 @@ const CalculatorScreen = ({ navigation }) => {
       await addDoc(collection(FIREBASE_DB, `users/${userID}/eGFRResults`), {
         eGFRLevel: eGFR,
         date: serverTimestamp(),
-        creatineLevel: creatine, //creatine saved as µmol/L
+        creatineLevel: creatine, // creatine saved as µmol/L
+        age: age, // Save age directly from state
+        sex: sex, // Save sex directly from state
+        ethnicity: ethnicity, // Save ethnicity directly from state
       });
+      console.log(age)
       console.log("User details submitted successfully");
     } catch (error) {
       console.error(error);
