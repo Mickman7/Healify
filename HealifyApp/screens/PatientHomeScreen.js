@@ -52,11 +52,18 @@ const PatientHomeScreen = () => {
       <Header headerText={"Home"} />
       <View style={styles.historyContainerStyle}>
         <Text style={styles.titleStyle}>History</Text>
-        <ResultsList
-          results={results}
-          style={styles.listStyle}
-          scrollDirection={true}
-        />
+        {results.length > 0 ? (
+          <ResultsList
+            results={results}
+            style={styles.listStyle}
+            scrollDirection={true}
+          />
+        ) : (
+          <Text style={styles.noPreviousResultsStyle}>
+            No previous results. Results of your past eGFR calculations will
+            show here.
+          </Text>
+        )}
       </View>
       <Text style={styles.subheadingStyle}>Chronic Kidney Disease (CKD)</Text>
       <TouchableOpacity
@@ -110,6 +117,12 @@ const styles = StyleSheet.create({
   historyContainerStyle: {
     height: "42%",
     backgroundColor: "#052B420A",
+  },
+  noPreviousResultsStyle: {
+    textAlign: "center",
+    marginTop: 100,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
 
