@@ -102,7 +102,7 @@ const ClinicianHome = () => {
         <Text style={{fontSize: 17, fontWeight: 'bold'}}>Total Patients Processed:</Text>
 
         <View style={styles.patientTotalField}>
-            <Text style={{fontSize: 30, fontWeight: 'bold'}}>{totalPatients}</Text>
+            <Text style={{fontSize: 35, fontWeight: 'bold'}}>{totalPatients}</Text>
         </View>
       </View>
 
@@ -153,14 +153,14 @@ const styles = StyleSheet.create({
 
       },
       patientTotalField: {
-        borderWidth: 1,
-        width: 100,
-        height: 50,
+        width: 115,
+        height: 60,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'flex-end',
-        marginTop: 20
+        marginTop: 20,
+        backgroundColor: '#052B420D'
       },
       fileBtn: {
         backgroundColor: '#001C45',

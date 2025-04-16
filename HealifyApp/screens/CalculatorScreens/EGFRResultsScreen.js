@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
   resultContainerStyle: {
     alignContent: "center",
     width: "100%",
-    borderWidth: 1,
     borderRadius: 20,
     marginTop: 30,
+    backgroundColor: '#052B420D'
   },
   unitStyle: {
     fontSize: 30,
