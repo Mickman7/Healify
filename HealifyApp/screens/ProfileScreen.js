@@ -110,7 +110,7 @@ export default ProfileScreen
 
 const styles = StyleSheet.create({
     profileItemText: {
-        fontSize: 30
+        fontSize: 20
     },
     logoStyling: {
         width: 75,
